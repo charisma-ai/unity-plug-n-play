@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e083884f59ba6b44806014a55ad5689, type: 3}
+  m_Name: DefaultHumanoidNPCAnimationConfig
+  m_EditorClassIdentifier: 
+  _blinkTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _blinkInterval:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.097011745
+      value: 0.47617704
+      inSlope: 1.6226494
+      outSlope: 1.6226494
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _blinkBlendshapes:
+  - BlendName: BS.blink_R
+    Intensity: 100
+  - BlendName: BS.blink_L
+    Intensity: 100
+  _animationMetadata:
+    _animationLayers:
+    - LayerName: Base Layer
+      LayerId: 0
+      _layerMaskType: 0
+      _animationNodeData:
+      - _animationNodeName: StandDefault
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: IdleHappy
+        _animationTags: 6
+        _associatedCharismaEmotion: 
+      - _animationNodeName: IdleLean
+        _animationTags: 6
+        _associatedCharismaEmotion: 
+      - _animationNodeName: IdleMannerismArmStretch
+        _animationTags: 10
+        _associatedCharismaEmotion: 
+      - _animationNodeName: IdleMannerismChecknails
+        _animationTags: 10
+        _associatedCharismaEmotion: 
+      - _animationNodeName: IdleMannerismParanoid
+        _animationTags: 10
+        _associatedCharismaEmotion: FEAR
+      - _animationNodeName: rotate_L_90
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: rotate_L_180
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: rotate_R_180
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: rotate_R_90
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: WalkIdle
+        _animationTags: 16
+        _associatedCharismaEmotion: 
+    - LayerName: Fullbody
+      LayerId: 1
+      _layerMaskType: 0
+      _animationNodeData:
+      - _animationNodeName: stand_talk_01
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+      - _animationNodeName: stand_talk_02
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+      - _animationNodeName: stand_talk_03
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+      - _animationNodeName: stand_talk_04
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+      - _animationNodeName: Wave
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: talk_loop_1_F
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+      - _animationNodeName: talk_loop_2_F
+        _animationTags: 3
+        _associatedCharismaEmotion: 
+    - LayerName: Head
+      LayerId: 2
+      _layerMaskType: 1
+      _animationNodeData:
+      - _animationNodeName: head_agreement
+        _animationTags: 35
+        _associatedCharismaEmotion: 
+      - _animationNodeName: head_annoyed
+        _animationTags: 35
+        _associatedCharismaEmotion: DISGUST
+      - _animationNodeName: head_disagreement
+        _animationTags: 35
+        _associatedCharismaEmotion: HATE
+      - _animationNodeName: head_disappointment
+        _animationTags: 35
+        _associatedCharismaEmotion: 
+      - _animationNodeName: head_shy
+        _animationTags: 35
+        _associatedCharismaEmotion: SHAME
+      - _animationNodeName: head_thankful
+        _animationTags: 35
+        _associatedCharismaEmotion: GRATITUDE
+      - _animationNodeName: head_thinking
+        _animationTags: 35
+        _associatedCharismaEmotion: 
+    - LayerName: Upperbody
+      LayerId: 3
+      _layerMaskType: 2
+      _animationNodeData:
+      - _animationNodeName: body_disappointed
+        _animationTags: 35
+        _associatedCharismaEmotion: HATE
+      - _animationNodeName: body_thankful
+        _animationTags: 35
+        _associatedCharismaEmotion: 
+      - _animationNodeName: body_thinking
+        _animationTags: 35
+        _associatedCharismaEmotion: 
+      - _animationNodeName: body_sad
+        _animationTags: 35
+        _associatedCharismaEmotion: DISGUST
+    _animationParameters:
+    - _type: 3
+      _name: Rotate
+    - _type: 4
+      _name: Talking
+    - _type: 4
+      _name: Walking
+  _referenceAnimationController: {fileID: 9100000, guid: 7bacf9812df0e9f4599d3880efb48bb9, type: 2}
+  _expressionParentDirectory: Assets\Samples\Charisma.ai NPC\0.1.0\Example\Animation\Data
+  _facialExpressions:
+  - {fileID: 11400000, guid: 199a3deab6b69c649a1afbb617a13f6f, type: 2}
+  - {fileID: 11400000, guid: 40f9fb95b53dca449927d812a94ebbf0, type: 2}
+  - {fileID: 11400000, guid: 7e918074a8ef6d142955c94a38e20cda, type: 2}
+  - {fileID: 11400000, guid: 87038ac6923b1904ab395bf24e970cde, type: 2}
+  - {fileID: 11400000, guid: 47b44dc762b4849499df292a40ea4b46, type: 2}
+  - {fileID: 11400000, guid: c8a1ec01359dd014a80a1466d2913c3d, type: 2}
+  - {fileID: 11400000, guid: 0f0d97f13284a7e428e29d5f3a70a5b9, type: 2}
+  - {fileID: 11400000, guid: a063caae70f6fee4e9f624ebc7ff1c1f, type: 2}
+  - {fileID: 11400000, guid: 589ab46aa49336c408df67f646d2f473, type: 2}
+  - {fileID: 11400000, guid: 1f962fe2111204f4cb3e674aab745a62, type: 2}
+  - {fileID: 11400000, guid: 24dbc9f186304ad4e97f1fb696d8e6f8, type: 2}

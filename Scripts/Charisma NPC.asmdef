@@ -1,0 +1,17 @@
+{
+    "name": "Charisma NPC",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cbd398b7a0281441c9a6800be1ca9717",
+        "GUID:c6bb2dee62903ee4c8209eaaad82d92a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

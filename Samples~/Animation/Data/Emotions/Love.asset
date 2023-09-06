@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4577a331af42f814289cc99b1ccc8699, type: 3}
+  m_Name: Love
+  m_EditorClassIdentifier: 
+  _associatedCharismaEmotion: LOVE
+  _blendshapes:
+  - BlendName: BS.contempt_M
+    BlendInt: 22
+    Intensity: 53.6
+  - BlendName: BS.happy_M
+    BlendInt: 28
+    Intensity: 58.6
+  - BlendName: BS.brow_innerRaiser_R
+    BlendInt: 29
+    Intensity: 100
+  - BlendName: BS.brow_innerRaiser_L
+    BlendInt: 35
+    Intensity: 100
+  - BlendName: BS.cheek_raiser_R
+    BlendInt: 55
+    Intensity: 28.3
+  - BlendName: BS.cheek_raiser_L
+    BlendInt: 58
+    Intensity: 29.5

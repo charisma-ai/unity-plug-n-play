@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4577a331af42f814289cc99b1ccc8699, type: 3}
+  m_Name: Gratitude
+  m_EditorClassIdentifier: 
+  _associatedCharismaEmotion: GRATITUDE
+  _blendshapes:
+  - BlendName: BS.disgust_M
+    BlendInt: 23
+    Intensity: 23.2
+  - BlendName: BS.happy_M
+    BlendInt: 28
+    Intensity: 88.8
+  - BlendName: BS.brow_innerRaiser_R
+    BlendInt: 29
+    Intensity: 68.7
+  - BlendName: BS.brow_raiser_R
+    BlendInt: 31
+    Intensity: 32.3
+  - BlendName: BS.brow_innerRaiser_L
+    BlendInt: 35
+    Intensity: 65.5
+  - BlendName: BS.brow_raiser_L
+    BlendInt: 37
+    Intensity: 37.9
+  - BlendName: BS.mouth_open_M
+    BlendInt: 68
+    Intensity: 12.5
+  - BlendName: BS.mouth_lowerPuckerOut_M
+    BlendInt: 83
+    Intensity: 10

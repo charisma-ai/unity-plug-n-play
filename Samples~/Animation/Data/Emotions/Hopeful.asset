@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4577a331af42f814289cc99b1ccc8699, type: 3}
+  m_Name: Hopeful
+  m_EditorClassIdentifier: 
+  _associatedCharismaEmotion: HOPE
+  _blendshapes:
+  - BlendName: BS.happy_M
+    BlendInt: 28
+    Intensity: 12.2
+  - BlendName: BS.brow_innerRaiser_R
+    BlendInt: 29
+    Intensity: 67.7
+  - BlendName: BS.brow_raiser_R
+    BlendInt: 31
+    Intensity: 36.7
+  - BlendName: BS.brow_innerRaiser_L
+    BlendInt: 35
+    Intensity: 67.2
+  - BlendName: BS.brow_raiser_L
+    BlendInt: 37
+    Intensity: 48.9
+  - BlendName: BS.mouth_wide_M
+    BlendInt: 65
+    Intensity: 29.3
+  - BlendName: BS.mouth_lowerPressIn_M
+    BlendInt: 72
+    Intensity: 32.7
+  - BlendName: BS.mouth_upperRollIn_M
+    BlendInt: 78
+    Intensity: 1.7
+  - BlendName: BS.mouth_lowerRollIn_M
+    BlendInt: 80
+    Intensity: 45.9
+  - BlendName: BS.mouth_upperPuckerIn_M
+    BlendInt: 82
+    Intensity: 70.9

@@ -1,0 +1,36 @@
+{
+	"name": "ai.charisma.plugnplay",
+	"version": "0.1.0",
+	"displayName": "Charisma.ai Plug-N-Play",
+	"description": "Charisma.ai Plug-N-Play for Unity",
+	"unity": "2021.3",
+	"license": "MIT",
+	"category": "Networking",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/charisma-ai/charisma-sdk-unity.git"
+	},
+	"author": {
+		"name": "Charisma Entertainment Ltd",
+		"email": "hello@charisma.ai",
+		"url": "https://charisma.ai/"
+	},
+	"keywords": [
+		"charisma",
+		"plug-n-play",
+		"npc",
+		"ai",
+		"chatbot",
+		"conversation"
+	],
+	"dependencies": {
+		"ai.charisma.sdk": "0.1.0"
+	},
+	"samples": [
+		{
+			"displayName": "Example",
+			"description": "Charisma Example",
+			"path": "Samples~"
+		}
+	]
+}

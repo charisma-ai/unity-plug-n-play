@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4577a331af42f814289cc99b1ccc8699, type: 3}
+  m_Name: Fear
+  m_EditorClassIdentifier: 
+  _associatedCharismaEmotion: FEAR
+  _blendshapes:
+  - BlendName: BS.fear_M
+    BlendInt: 24
+    Intensity: 100
+  - BlendName: BS.squint_R
+    BlendInt: 46
+    Intensity: 25.9
+  - BlendName: BS.squint_L
+    BlendInt: 52
+    Intensity: 28.1
+  - BlendName: BS.cheek_raiser_R
+    BlendInt: 55
+    Intensity: 29.6
+  - BlendName: BS.cheek_raiser_L
+    BlendInt: 58
+    Intensity: 27.9
+  - BlendName: BS.nose_raiser_R
+    BlendInt: 61
+    Intensity: 50.6
+  - BlendName: BS.nose_raiser_L
+    BlendInt: 64
+    Intensity: 44
+  - BlendName: BS.mouth_close_M
+    BlendInt: 67
+    Intensity: 35.7
+  - BlendName: BS.mouth_lowerSqueezeIn_M
+    BlendInt: 75
+    Intensity: 15.4
