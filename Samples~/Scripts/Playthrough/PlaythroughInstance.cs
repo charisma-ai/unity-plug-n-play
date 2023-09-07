@@ -425,7 +425,7 @@ namespace CharismaSDK.PlugNPlay
                 {
                     if (actor.HasAudioPlayback)
                     {
-                        Audio.GetAudioClip(_speechOptions.encoding[0], message.message.speech.audio, clip => SendAudio(actor, clip));
+                        Audio.GetAudioClip(message.message.speech.encoding, message.message.speech.audio, clip => SendAudio(actor, clip));
                     }
                 }
             }

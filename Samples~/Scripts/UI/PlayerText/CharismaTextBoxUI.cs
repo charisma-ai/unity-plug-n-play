@@ -60,6 +60,12 @@ namespace CharismaSDK.PlugNPlay
 
         public void SetActorName(string name)
         {
+            if(name == null)
+            {
+                Debug.Log("Name not assigned for this textbox. Please review your NPCs Character ID field.");
+                return;
+            }
+
             // apply first character upper case to name
             _nameField.text = string.Concat(name[0].ToString().ToUpper(), name.Substring(1).ToLower());
         }
