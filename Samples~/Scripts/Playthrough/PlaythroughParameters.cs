@@ -14,7 +14,16 @@ namespace CharismaSDK.PlugNPlay
         public PlaythroughEntities Entities => _entities;
 
         [SerializeField]
-        private CreatePlaythroughTokenParams _tokenParameters;
+        [Tooltip("Unique ID of the story that you want to play.")]
+        private int _storyId;
+
+        [SerializeField]
+        [Tooltip("The version of the story you want to play. If set to 0, will load the latest published version. If set to -1, will load the current draft version. The draft also requires the API key to be set")]
+        private int _storyVersion;
+
+        [SerializeField]
+        [Tooltip("Used for loading the draft version of the story.")]
+        private string _apiKey;
 
         [SerializeField]
         [Tooltip("Specificies the node with which the Playthrough graph will start with. Can be found in the Charisma story.")]
@@ -29,9 +38,12 @@ namespace CharismaSDK.PlugNPlay
         [Tooltip("Collection of CharismaEntities that will be registered to this playthrough.")]
         private PlaythroughEntities _entities;
 
+        private CreatePlaythroughTokenParams _tokenParameters;
+
         public void Initialise()
         {
             _entities.FindAllValidPlaythroughEntities();
+            _tokenParameters = new CreatePlaythroughTokenParams(_storyId, _storyVersion, _apiKey);
         }
     }
 }
