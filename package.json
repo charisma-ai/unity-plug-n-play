@@ -8,7 +8,7 @@
 	"category": "Networking",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/charisma-ai/charisma-sdk-unity.git"
+		"url": "https://github.com/charisma-ai/unity-plug-n-play.git"
 	},
 	"author": {
 		"name": "Charisma Entertainment Ltd",
