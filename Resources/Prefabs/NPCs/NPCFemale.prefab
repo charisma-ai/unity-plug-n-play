@@ -850,7 +850,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2956407126450380046
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -867,7 +867,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1884384969762553057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2431,7 +2431,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6265063768051188632}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2, y: -0.02, z: 4.88}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2455,7 +2455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterId: 
   _headLocation: {fileID: 95389483721850144}
-  _npcComponent: {fileID: 1884384969311930952}
+  _characterComponent: {fileID: 1884384969311930952}
   _textRender: {fileID: 1884384969751496216}
 --- !u!114 &1884384969311930952
 MonoBehaviour:
@@ -2472,8 +2472,6 @@ MonoBehaviour:
   _animationController: {fileID: 1884384969762553057}
   _navmeshComponent: {fileID: 1884384969311930953}
   _audioSource: {fileID: 9083522641061736089}
-  _currentTasks: []
-  _pendingRemoval: []
 --- !u!195 &1193824428714867883
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2519,10 +2517,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.75
+  m_Height: 2.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!1 &6316511140459484509
 GameObject:
   m_ObjectHideFlags: 0

@@ -275,10 +275,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enableLogging: 1
   _parameters:
-    _tokenParameters:
-      _storyId: 0
-      _storyVersion: 0
-      _apiKey: 
+    _storyId: 0
+    _storyVersion: 0
+    _apiKey: 
     _startGraphReferenceId: 
     _metadataFunctions:
     - {fileID: 11400000, guid: 89732ae5572be554f967b735d56c308e, type: 2}
@@ -1510,6 +1509,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCFemale_4
       objectReference: {fileID: 0}
+    - target: {fileID: 3076216563785847815, guid: 6ee8676d852427343a0ee0d36354b9b9, type: 3}
+      propertyPath: m_Height
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076216563785847815, guid: 6ee8676d852427343a0ee0d36354b9b9, type: 3}
+      propertyPath: m_Radius
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076216563785847815, guid: 6ee8676d852427343a0ee0d36354b9b9, type: 3}
+      propertyPath: m_Center.y
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5167959240621110338, guid: 6ee8676d852427343a0ee0d36354b9b9, type: 3}
       propertyPath: _characterId
       value: 
@@ -1974,93 +1985,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482083526}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1504324297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6410533465450701456, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
-  m_PrefabInstance: {fileID: 4448255604725468729}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1504324298 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6410533465450701457, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
-  m_PrefabInstance: {fileID: 4448255604725468729}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1504324300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504324297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f43c520a9bad8a3489109c869f454576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1504324298}
-  provider: 1
-  enableAcceleration: 1
-  enableKeyboardInput: 0
-  enableTouchInput: 0
-  audioLoopback: 1
-  loopbackKey: 108
-  showVisemes: 0
-  debugVisemesKey: 100
-  skipAudioSource: 0
-  gain: 1
-  debugLaughterKey: 104
-  showLaughter: 0
-  laughterScore: 0
---- !u!114 &1504324301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504324297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b97b38f2f1fd24185315141a6c6a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinnedMeshRenderer: {fileID: 2042516333}
-  visemeToBlendTargets: ffffffff070000000c00000005000000090000000900000004000000050000000d00000003000000100000000f0000000b0000000600000002000000
-  enableVisemeTestKeys: 0
-  visemeTestKeys: 600000000900000071000000770000006500000072000000740000007900000075000000690000006f000000700000005b0000005d0000005c000000
-  laughterKey: 301
-  laughterBlendTarget: 15
-  laughterThreshold: 0.5
-  laughterMultiplier: 1.5
-  smoothAmount: 70
---- !u!114 &1504324302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504324297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689189309227141409b9067dbd18de57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMeshRenderer: {fileID: 2042516333}
-  _visemeToBlendTargets:
-  - 
-  - BS.M
-  - BS.F
-  - BS.S
-  - BS.K
-  - BS.K
-  - BS.SH
-  - BS.S
-  - BS.ER
-  - BS.T
-  - BS.AA
-  - BS.EE
-  - BS.IH
-  - BS.OW
-  - BS.TH
-  _headAudioSource: {fileID: 1504324298}
 --- !u!1001 &1603507658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2584,11 +2508,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.015, y: 0.2, z: 0.018}
   m_Center: {x: 0, y: 0.040828545, z: 0}
---- !u!137 &2042516333 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5905189412403716999, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
-  m_PrefabInstance: {fileID: 4448255604725468729}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2078435172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,6 +3132,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 654371298303428033, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
+      propertyPath: m_Height
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 654371298303428033, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
+      propertyPath: m_Radius
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 654371298303428033, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 654371298303428033, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
+      propertyPath: m_Center.y
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4448255605223223499, guid: e877383a1c5326f40ae906d2f35ccded, type: 3}
       propertyPath: _blinkingEnabled
       value: 1
