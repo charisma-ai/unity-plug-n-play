@@ -300,7 +300,7 @@ MonoBehaviour:
   _useSpeechOutput: 1
   _speechOptions:
     _audioOutput: 0
-    _encoding: 000000000100000002000000
+    _encoding: 0000000002000000
   _connectionState: {fileID: 817215499}
   _onStoryEnd:
     m_PersistentCalls:
