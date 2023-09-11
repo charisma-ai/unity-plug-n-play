@@ -60,7 +60,7 @@ namespace CharismaSDK.PlugNPlay
 
         public void SetActorName(string name)
         {
-            if(name == null)
+            if(String.IsNullOrEmpty(name))
             {
                 Debug.Log("Name not assigned for this textbox. Please review your NPCs Character ID field.");
                 return;
