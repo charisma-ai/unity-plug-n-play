@@ -505,7 +505,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: be80ca4fbbb64c94b8f72ff74c606e6c, type: 2}
   - {fileID: 2100000, guid: 23f48d57586d87946a09a6d085e4b6bd, type: 2}
   - {fileID: 2100000, guid: 5ba4a1525b2ace649a705b9ca8fc0a0b, type: 2}
-  - {fileID: 2100000, guid: 2c530ba9cd0c20e44bc3b54f1819c49d, type: 2}
+  - {fileID: 2100000, guid: afc80569fae86a34085c73ea30c53f84, type: 2}
   - {fileID: 2100000, guid: be80ca4fbbb64c94b8f72ff74c606e6c, type: 2}
   - {fileID: 2100000, guid: 5154fb6e47ad6d543bd9f37b0b855226, type: 2}
   - {fileID: 2100000, guid: 2495b62f8f21b434c8fa0b0e64f129cd, type: 2}
@@ -850,7 +850,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2956407126450380046
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -867,7 +867,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1884384969762553057
 MonoBehaviour:
   m_ObjectHideFlags: 0

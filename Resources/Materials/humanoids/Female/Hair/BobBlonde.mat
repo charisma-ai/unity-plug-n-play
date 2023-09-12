@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BobBlonde
-  m_Shader: {fileID: -6465566751694194690, guid: f57f66772d2cf462ca3f22009608ee3d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 384d88ff5b296a44b89f1fb2d4442c01, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _DISABLE_SSR_TRANSPARENT
@@ -29,6 +29,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseColorMap:
+        m_Texture: {fileID: 2800000, guid: 753f75d6778cac04782e3ba671b3b2c8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _CutoutOpacityMap:
         m_Texture: {fileID: 2800000, guid: 753f75d6778cac04782e3ba671b3b2c8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -45,8 +49,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5c128527e105899498796cfb7d494b3e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: c01098c368000a74ab3b4425d170daa4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmoothnessMask:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularMap:
@@ -76,12 +88,16 @@ Material:
     - _AlphaClip: 0.33
     - _AlphaClipPost: 1
     - _AlphaClipPre: 1
+    - _AlphaClipThreshold: 0
+    - _AlphaClipThresholdDepthPostpass: 0.6
+    - _AlphaClipThresholdDepthPrepass: 0.9
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 0
     - _AlphaOffset: 0.25
     - _AlphaPower: 1
     - _AlphaSrcBlend: 1
     - _AlphaStrength: 0.164
+    - _AlphaThresholdShadow: 0.5
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
@@ -99,12 +115,20 @@ Material:
     - _GlossyRoughness: 0
     - _Height: 1
     - _HeightOffset: 0.25
+    - _LightmapUV: 0
+    - _NormalScale: 1
     - _NormalStrength: 1
     - _OpaqueCullMode: 2
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
+    - _SecondarySpecular: 1
+    - _SecondarySpecularShift: 0.9
+    - _SmoothnessMax: 0.404
+    - _SmoothnessMin: 0.106
+    - _Specular: 1
+    - _SpecularShift: 0.5
     - _SrcBlend: 1
     - _StencilRef: 0
     - _StencilRefDepth: 8
@@ -118,6 +142,7 @@ Material:
     - _StencilWriteMaskMV: 40
     - _SupportDecals: 1
     - _SurfaceType: 0
+    - _TransmissionRim: 0.037
     - _TransparentBackfaceEnable: 1
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 1
@@ -131,11 +156,15 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
+    - _BaseColor: {r: 0.32941177, g: 0.27058825, b: 0.16862746, a: 1}
     - _Diffuse: {r: 0.3301887, g: 0.2692743, b: 0.16937469, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColorSecondary: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _TransmissionColor: {r: 1, g: 0.8666667, b: 0.627451, a: 1}
+    - _uvBaseST: {r: 1, g: 1, b: 0, a: 0}
+    - _uvSmoothnessST: {r: 20, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1974413483948151101
 MonoBehaviour:
