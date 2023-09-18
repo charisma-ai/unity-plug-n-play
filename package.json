@@ -24,7 +24,8 @@
 		"conversation"
 	],
 	"dependencies": {
-		"ai.charisma.sdk": "0.1.0"
+		"ai.charisma.sdk": "0.1.0",
+		"com.unity.render-pipelines.high-definition": "12.1.7"
 	},
 	"samples": [
 		{
