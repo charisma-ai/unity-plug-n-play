@@ -365,7 +365,7 @@ namespace CharismaSDK.PlugNPlay
                 if (!_crossfadeRequestedThisFrame)
                 {
                     _animator.CrossFade(animationNode, 1.6f, layer.LayerId);
-                    _crossfadeRequestedThisFrame = true;
+                    //_crossfadeRequestedThisFrame = true;
                 }
                 else
                 {

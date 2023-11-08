@@ -346,7 +346,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5154fb6e47ad6d543bd9f37b0b855226, type: 2}
-  - {fileID: 2100000, guid: 5154fb6e47ad6d543bd9f37b0b855226, type: 2}
+  - {fileID: 2100000, guid: 058cff888ee4c8742870b5f1eb8a8681, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -862,9 +862,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7792294120013183153}
   - component: {fileID: 1131139051899808309}
-  - component: {fileID: 8507153398637515057}
-  - component: {fileID: 8423070645147311322}
-  - component: {fileID: 3628050807623356176}
   m_Layer: 0
   m_Name: AudioSource
   m_TagString: Untagged
@@ -983,83 +980,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8507153398637515057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591119106136152571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689189309227141409b9067dbd18de57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMeshRenderer: {fileID: 8451994328728572583}
-  _visemeToBlendTargets:
-  - 
-  - BS.M
-  - BS.F
-  - BS.S
-  - BS.K
-  - BS.K
-  - BS.SH
-  - BS.S
-  - BS.ER
-  - BS.T
-  - BS.AA
-  - BS.EE
-  - BS.IH
-  - BS.OW
-  - BS.TH
-  _headAudioSource: {fileID: 1131139051899808309}
---- !u!114 &8423070645147311322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591119106136152571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b97b38f2f1fd24185315141a6c6a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinnedMeshRenderer: {fileID: 8451994328728572583}
-  visemeToBlendTargets: ffffffff070000000c00000005000000090000000900000004000000050000000d00000003000000100000000f0000000b0000000600000002000000
-  enableVisemeTestKeys: 0
-  visemeTestKeys: 600000000900000071000000770000006500000072000000740000007900000075000000690000006f000000700000005b0000005d0000005c000000
-  laughterKey: 301
-  laughterBlendTarget: 15
-  laughterThreshold: 0.5
-  laughterMultiplier: 1.5
-  smoothAmount: 70
---- !u!114 &3628050807623356176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591119106136152571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f43c520a9bad8a3489109c869f454576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1131139051899808309}
-  provider: 1
-  enableAcceleration: 1
-  enableKeyboardInput: 0
-  enableTouchInput: 0
-  audioLoopback: 1
-  loopbackKey: 108
-  showVisemes: 0
-  debugVisemesKey: 100
-  skipAudioSource: 0
-  gain: 1
-  debugLaughterKey: 104
-  showLaughter: 0
-  laughterScore: 0
 --- !u!1 &2595499633735797451
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,7 +1971,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2428837306711510402
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2068,7 +1988,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8955716507871420867
 MonoBehaviour:
   m_ObjectHideFlags: 0

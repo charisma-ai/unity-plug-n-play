@@ -424,7 +424,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 99629a470a0214f4587e5a13f33af07e, type: 2}
-  - {fileID: 2100000, guid: 99629a470a0214f4587e5a13f33af07e, type: 2}
+  - {fileID: 2100000, guid: 058cff888ee4c8742870b5f1eb8a8681, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1637,7 +1637,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7382165119896624062
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1654,7 +1654,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &9173334241614126178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1810,7 +1811,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4138928359381178150}
   - component: {fileID: 281239911198787890}
-  - component: {fileID: 3570129699668564667}
   m_Layer: 0
   m_Name: AudioSource
   m_TagString: Untagged
@@ -1929,21 +1929,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3570129699668564667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6153228694622150285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689189309227141409b9067dbd18de57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMeshRenderer: {fileID: 8368816258789523787}
-  _visemeToBlendTargets: []
-  _headAudioSource: {fileID: 281239911198787890}
 --- !u!1 &6207769301636356751
 GameObject:
   m_ObjectHideFlags: 0

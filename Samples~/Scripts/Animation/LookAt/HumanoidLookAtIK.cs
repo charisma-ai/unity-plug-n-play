@@ -7,6 +7,7 @@ namespace CharismaSDK.PlugNPlay
         private Animator _animator;
         private Transform _headPosition;
         private Transform _npcTransform;
+        private Transform _headBone;
 
         // pass this stuff via Constructor
         private float _weight = 1.0f;
@@ -31,6 +32,7 @@ namespace CharismaSDK.PlugNPlay
             _animator = animator;
             _headPosition = headPosition;
             _npcTransform = parentNpcObject;
+            _headBone = _animator.GetBoneTransform(HumanBodyBones.Head);
         }
 
         #region public 
@@ -58,8 +60,22 @@ namespace CharismaSDK.PlugNPlay
 
         public override void DisableLookAt()
         {
-            _smoothedLookAtPosition = _headPosition.position + _npcTransform.transform.forward;
-            _smoothedLookAtVector = _npcTransform.transform.forward;
+            var speed = _lookAtSpeed;
+
+            Vector3 myPos = _headBone.position;
+            Vector3 targetVector = _headBone.transform.forward;
+            Vector3 targetVectorNorm = targetVector.normalized;
+
+            float t = Mathf.Clamp01(Time.deltaTime * speed);
+
+            //Interpolate to the target vector, using spherical interpolation in the XZ plane, and linear interpolation in the Y axis, to simulate our neck's limited range of motion.
+            float distance = Mathf.Lerp((_smoothedLookAtPosition - myPos).magnitude, targetVector.magnitude, t);
+
+            _smoothedLookAtVector = _smoothedLookAtVector.XZ()
+                .Slerp(targetVectorNorm.XZ(), t)
+                .Y2Z(Mathf.LerpAngle(_smoothedLookAtVector.y, targetVectorNorm.y, t)).normalized;
+
+            _smoothedLookAtPosition = myPos + _smoothedLookAtVector * distance;
 
             _animator?.SetLookAtPosition(_smoothedLookAtPosition);
         }
@@ -113,7 +129,7 @@ namespace CharismaSDK.PlugNPlay
                 return;
             }
 
-            Vector3 myPos = _headPosition.position;
+            Vector3 myPos = _headBone.position;
             Vector3 targetVector = _lookAtTargetPosition - myPos;
             Vector3 targetVectorNorm = targetVector.normalized;
 
