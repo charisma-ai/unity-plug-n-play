@@ -33,7 +33,7 @@ Plugins/
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
-*editor.meta
+# *editor.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
