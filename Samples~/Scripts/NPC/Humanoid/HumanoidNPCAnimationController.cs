@@ -150,10 +150,6 @@ namespace CharismaSDK.PlugNPlay
 
         private bool _hasBlinked;
 
-        // unity does not allow two different layers to crossfade at the same time, without an awkward tpose
-        // doing a crossfade on the FIRST layer change seems to fix it
-        private bool _crossfadeRequestedThisFrame = false;
-
         void Start()
         {
             InitialiseBlendshapesAnimator();
@@ -175,24 +171,11 @@ namespace CharismaSDK.PlugNPlay
             _blendshapesAnimator?.Update(false);
             _turnTo?.Update();
             BlinkUpdate();
-
-            // cleanup crossfade request, since only one can be requested per frame
-            _crossfadeRequestedThisFrame = false;
         }
 
         private void OnAnimatorIK(int layerIndex)
         {
-            // only update look at if the head is idle
-            var animationState = _animator.GetCurrentAnimatorStateInfo(_headLayerIndex);
-            if (animationState.IsName("Idle")
-                || animationState.IsName("Back_To_Idle")) 
-            {
-                _lookAt?.Update(); 
-            }
-            else
-            {
-                _lookAt?.DisableLookAt();
-            }
+            _lookAt?.Update(); 
         }
         
         #region Public Functions
@@ -362,15 +345,7 @@ namespace CharismaSDK.PlugNPlay
             }
             else
             {
-                if (!_crossfadeRequestedThisFrame)
-                {
-                    _animator.CrossFade(animationNode, 1.6f, layer.LayerId);
-                    //_crossfadeRequestedThisFrame = true;
-                }
-                else
-                {
-                    _animator.Play(animationNode, layer.LayerId);
-                }
+                _animator.CrossFade(animationNode, 0.75f, layer.LayerId);
             }
 
             Debug.Log($"[RequestAnimation] {this.name} - Setting animation {animationNode} on layer {layer.LayerName}.");

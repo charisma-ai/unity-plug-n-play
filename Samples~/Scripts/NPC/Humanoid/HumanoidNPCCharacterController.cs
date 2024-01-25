@@ -92,13 +92,26 @@ namespace CharismaSDK.PlugNPlay
             _emotionIntensity = 0.0f;
             _currentEmotion = string.Empty;
 
+            if (emotions == default)
+            {
+                return;
+            }
+
+            if (emotions.Count == 0)
+            {
+                return;
+            }
+
             foreach (var emotion in emotions)
             {
-                ApplyEmotion(emotion, messageDuration);
+                SortMostIntenseEmotion(emotion);
             }
+
+            _animationController.SetFacialExpression(_currentEmotion, _emotionIntensity, messageDuration);
+
         }
 
-        private void ApplyEmotion(Emotion emotion, float messageDuration = 0.0f)
+        private void SortMostIntenseEmotion(Emotion emotion)
         {
             foreach (var effect in emotion.activeEffects)
             {
@@ -119,9 +132,7 @@ namespace CharismaSDK.PlugNPlay
                     _emotionIdDuration.Add(effect.id, effect.durationRemaining + 5.0f);
                 }
 
-                _animationController.SetFacialExpression(effect.feeling, intensity, messageDuration);
-
-                if(intensity > _emotionIntensity)
+                if (intensity > _emotionIntensity)
                 {
                     _emotionIntensity = intensity;
                     _currentEmotion = effect.feeling;
