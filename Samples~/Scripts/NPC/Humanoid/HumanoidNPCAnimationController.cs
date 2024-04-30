@@ -378,6 +378,11 @@ namespace CharismaSDK.PlugNPlay
             ParseAnimationRequest(flag, emotionToApply, force);
         }
 
+        internal bool HasFinishedTurning()
+        {
+            return _turnTo.IsTurning();
+        }
+
         /// <summary>
         /// Tries to request the correct animation featuring the attached flags
         /// </summary>

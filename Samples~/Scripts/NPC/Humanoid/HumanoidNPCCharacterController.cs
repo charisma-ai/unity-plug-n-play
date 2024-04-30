@@ -441,7 +441,7 @@ namespace CharismaSDK.PlugNPlay
                     return;
                 }
 
-                if (IsFacingTargetGoTo())
+                if (IsFacingTargetGoTo() && _animationController.HasFinishedTurning())
                 {
                     PlayAppropriateWalkingAnimation();
                     _fsm.SetState(NPCState.Walk);

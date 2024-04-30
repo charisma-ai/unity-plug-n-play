@@ -50,6 +50,11 @@ namespace CharismaSDK.PlugNPlay
             _animator.applyRootMotion = false;
         }
 
+        public override bool IsTurning()
+        {
+            return _animator.GetInteger(_rotateHash) != 0 || _turnToTargetSet;
+        }
+
         private void UpdateTargetOrientation()
         {
             if (!_turnToTargetSet)

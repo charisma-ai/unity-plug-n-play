@@ -51,9 +51,6 @@ namespace CharismaSDK.PlugNPlay
 
         [Header("Facial Expressions")]
         [SerializeField]
-        private string _expressionParentDirectory;
-
-        [SerializeField]
         private List<NpcFacialExpression> _facialExpressions;
 
 #if UNITY_EDITOR
@@ -73,19 +70,31 @@ namespace CharismaSDK.PlugNPlay
             }
         }
 
+        public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object
+        {
+            List<T> assets = new List<T>();
+
+            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+
+                T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+
+                if (asset != null)
+                {
+                    assets.Add(asset);
+                }
+            }
+
+            return assets;
+        }
+
         private void InitialiseFacialExpressions()
         {
             //Refresh facial expressions
-            _facialExpressions = new List<NpcFacialExpression>();
-            foreach (string f in Directory.GetFiles(_expressionParentDirectory, "*", SearchOption.AllDirectories)
-                         .ToList())
-            {
-                var expression = AssetDatabase.LoadAssetAtPath<NpcFacialExpression>(f);
-                if (expression != null)
-                {
-                    _facialExpressions.Add(expression);
-                }
-            }
+            _facialExpressions = FindAssetsByType<NpcFacialExpression>();
         }
 
 #endif

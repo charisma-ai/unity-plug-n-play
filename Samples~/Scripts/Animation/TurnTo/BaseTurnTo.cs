@@ -36,5 +36,11 @@ namespace CharismaSDK.PlugNPlay
         /// Both positional and GameObject target.
         /// </summary>
         public abstract void ClearTurnTo();
+
+        /// <summary>
+        /// returns whether we have finished turning to our target.
+        /// </summary>
+        /// <returns></returns>
+        public abstract bool IsTurning();
     }
 }
