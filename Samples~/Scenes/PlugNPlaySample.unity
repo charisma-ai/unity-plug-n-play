@@ -304,10 +304,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enableLogging: 1
   _parameters:
-    _storyId: 29718
-    _storyVersion: -1
-    _apiKey: bda07441-0a84-44d9-b57c-5485d61f25a5
-    _startGraphReferenceId: 4d6ed514-afc5-476f-bc26-7e9fc6108316
+    _storyId: 0
+    _storyVersion: 0
+    _apiKey: 
+    _startGraphReferenceId: 
     _metadataFunctions:
     - {fileID: 11400000, guid: 89732ae5572be554f967b735d56c308e, type: 2}
     - {fileID: 11400000, guid: 2c6d18b14c81d2046b207f491b919c9c, type: 2}
