@@ -1,5 +1,5 @@
 using CharismaSDK.Events;
-using CharismaSDK.Sound;
+using CharismaSDK.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -77,6 +77,7 @@ namespace CharismaSDK.PlugNPlay
         {
             if (_playthrough != default)
             {
+                Debug.LogError("asdasdasd");
                 _playthrough.OnConnectionStateChange -= UpdateConnectionState;
                 _playthrough.OnSpeechRecognitionResult -= OnSpeechRecognitionResult;
                 _playthrough.OnMessage -= HandleMessage;
@@ -91,7 +92,6 @@ namespace CharismaSDK.PlugNPlay
                     player.StopVoiceRecognition -= SetPlaythroughToListening;
                 }
             }
-
         }
 
         #region Public Functions
@@ -425,7 +425,7 @@ namespace CharismaSDK.PlugNPlay
                 {
                     if (actor.HasAudioPlayback)
                     {
-                        Audio.GetAudioClip(message.message.speech.encoding, message.message.speech.audio, clip => SendAudio(actor, clip));
+                        CharismaAudio.GetAudioClip(message.message.speech.encoding, message.message.speech.audio, clip => SendAudio(actor, clip));
                     }
                 }
             }
