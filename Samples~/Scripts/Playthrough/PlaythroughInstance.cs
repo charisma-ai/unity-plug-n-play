@@ -77,7 +77,6 @@ namespace CharismaSDK.PlugNPlay
         {
             if (_playthrough != default)
             {
-                Debug.LogError("asdasdasd");
                 _playthrough.OnConnectionStateChange -= UpdateConnectionState;
                 _playthrough.OnSpeechRecognitionResult -= OnSpeechRecognitionResult;
                 _playthrough.OnMessage -= HandleMessage;
