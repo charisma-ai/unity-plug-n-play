@@ -8,8 +8,6 @@ If you have any questions or need a hand, please reach out to us at [hello@chari
 
 **Important:** Before setting up the Charisma SDK for Unity, you’ll need to have created a Pro story (not a Starter story!), which requires a Charisma licence. Please visit the [licencing docs on our website](https://charisma.ai/docs/licencing) for more info!
 
-If you haven’t already, go ahead and create an Unity project. Make sure you are using a version of the engine that is supported by this plugin.
-
 ## Importing / Installing
 
 **Important:** Make sure to install the [Charisma Unity SDK](https://github.com/charisma-ai/charisma-sdk-unity) in order to enable the Plug-N-Play plugin to work.
@@ -20,4 +18,6 @@ Unity will download the Charisma package into your project as a package. This in
 
 ## Using the Plug-N-Play
 
-Please refer to our [SDK Documentation page](https://charisma.ai/docs/sdks) and [Unity Tutorial series](https://www.youtube.com/playlist?list=PLJL7mxAoErKzABDahUXzjNBNM7GUjUF45) for more information on how to setup and use the Plug-N-Play for your stories!
+Please refer to the [Charisma Unity SDK](https://github.com/charisma-ai/charisma-sdk-unity#plug-n-play) guide to find out how to connect the example scene to your Charisma story.
+
+Also, check out our [SDK Documentation page](https://charisma.ai/docs/sdks) and [Unity Tutorial series](https://www.youtube.com/playlist?list=PLJL7mxAoErKzABDahUXzjNBNM7GUjUF45) for more information on how to use the Plug-N-Play for your stories!
