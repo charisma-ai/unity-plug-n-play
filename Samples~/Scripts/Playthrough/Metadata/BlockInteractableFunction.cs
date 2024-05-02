@@ -8,16 +8,20 @@ namespace CharismaSDK.PlugNPlay
 
         public override void Execute(string metadataValue)
         {
-            var entity = Dependencies.PlaythroughEntities.GetEntityByName(metadataValue);
+            string[] subjectTargets = metadataValue.Split(',');
 
-            if (entity != default
-                && entity is CharismaInteractableEntity interactable)
+            foreach (var target in subjectTargets)
             {
-                interactable.SetEnabled(false);
-            }
-            else
-            {
-                Debug.LogWarning($"Interactable with name {metadataValue} not found. Cannot enable interaction.");
+                var entity = Dependencies.PlaythroughEntities.GetEntityByName(target);
+
+                if (entity != default && entity is CharismaInteractableEntity interactable)
+                {
+                    interactable.SetEnabled(false);
+                }
+                else
+                {
+                    Debug.LogWarning($"Interactable with name {target} not found. Cannot enable interaction.");
+                }
             }
         }
     }
