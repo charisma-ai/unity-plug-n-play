@@ -41,7 +41,7 @@ namespace CharismaSDK.PlugNPlay
                     continue;
                 }
 
-                string metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.1.0/Example/Data/Playthrough/Metadata/";
+                string metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.1.3/Example/Data/Playthrough/Metadata/";
                 if (!Directory.Exists(metadataFunctionFolder))
                 {
                     Directory.CreateDirectory(metadataFunctionFolder);
