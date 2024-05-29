@@ -1,24 +1,14 @@
 using CharismaSDK.PlugNPlay;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SimpleSceneManager : MonoBehaviour
 {
     [SerializeField]
-    private PlaythroughInstance _playthrough;
-
-    [SerializeField]
     private Animator _animator;
-
     private bool _requestToFade;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Begin loading playthrough.
-        _playthrough.LoadPlaythrough();
-    }
 
     private void Update()
     {

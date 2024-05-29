@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 42516865}
   - component: {fileID: 42516866}
   m_Layer: 0
-  m_Name: PlaythroughInstance
+  m_Name: CharismaPlaythroughInstance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,34 +302,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25ceb5a0929634ba4da6ca05908f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enableLogging: 1
-  _parameters:
-    _storyId: 0
-    _storyVersion: 0
-    _apiKey: 
-    _startGraphReferenceId: 
-    _metadataFunctions:
-    - {fileID: 11400000, guid: 89732ae5572be554f967b735d56c308e, type: 2}
-    - {fileID: 11400000, guid: 2c6d18b14c81d2046b207f491b919c9c, type: 2}
-    - {fileID: 11400000, guid: aee900cc5c9c7de4e93e9ddb777dc3d5, type: 2}
-    - {fileID: 11400000, guid: cf66df06c04057d4faf908ac14e3bab0, type: 2}
-    - {fileID: 11400000, guid: 0a161b5a88ab0204591c4fa671156160, type: 2}
-    - {fileID: 11400000, guid: 787d5a9bfae1dad47914aa77f56bd581, type: 2}
-    - {fileID: 11400000, guid: 24d7a19f51eea384d9b7a12487c0f1cc, type: 2}
-    _entities:
-      _player: {fileID: 171667018}
-      _actors: []
-      _interactables:
-      - {fileID: 2083983520}
-      - {fileID: 1603507661}
-      - {fileID: 1782966586}
-      _gotos:
-      - {fileID: 909603369}
-      - {fileID: 241676349}
-  _useSpeechOutput: 1
+  _storyId: 0
+  _storyVersion: 0
+  _apiKey: 
+  _startGraphReferenceId: 
   _speechOptions:
     _audioOutput: 0
     _encoding: 0000000002000000
+  _enableLogging: 1
+  _useSpeechOutput: 1
+  _metadataFunctions:
+  - {fileID: 11400000, guid: 89732ae5572be554f967b735d56c308e, type: 2}
+  - {fileID: 11400000, guid: 2c6d18b14c81d2046b207f491b919c9c, type: 2}
+  - {fileID: 11400000, guid: aee900cc5c9c7de4e93e9ddb777dc3d5, type: 2}
+  - {fileID: 11400000, guid: cf66df06c04057d4faf908ac14e3bab0, type: 2}
+  - {fileID: 11400000, guid: 24d7a19f51eea384d9b7a12487c0f1cc, type: 2}
+  - {fileID: 11400000, guid: 0a161b5a88ab0204591c4fa671156160, type: 2}
+  - {fileID: 11400000, guid: 787d5a9bfae1dad47914aa77f56bd581, type: 2}
+  _entities:
+    _player: {fileID: 0}
+    _actors: []
+    _interactables: []
+    _gotos: []
   _connectionState: {fileID: 817215499}
   _onStoryEnd:
     m_PersistentCalls:
@@ -418,7 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5319c8d0a35525341989107d57386ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playthrough: {fileID: 42516866}
   _animator: {fileID: 32669490}
 --- !u!4 &148208001
 Transform:
@@ -435,18 +428,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &171667018 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4028536148387213626, guid: 7611b90f276dd9c44951cae34a9da9fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 4028536148284137328}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35524aec244a4644a94bfd6b92a4617b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &217583396
 GameObject:
   m_ObjectHideFlags: 0
