@@ -2,6 +2,7 @@ using CharismaSDK.Events;
 using CharismaSDK.Audio;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using static CharismaSDK.Playthrough;
@@ -33,7 +34,26 @@ namespace CharismaSDK.PlugNPlay
         [SerializeField]
         private UnityEvent _onStoryEnd;
         
-        private string _recognizedText;
+        // STT
+        private List<string> _recognizedSpeechTextList = new List<string>();
+        private string _currentRecognizedText;
+        
+        private string CurrentRecognizedText 
+        {
+            get
+            {
+                var text = new StringBuilder();
+
+                foreach (var speechLine in _recognizedSpeechTextList)
+                {
+                    text.Append(speechLine + " ");
+                }
+
+                text.Append(_currentRecognizedText);
+                
+                return text.ToString();
+            }
+        }
         
         private void Awake()
         {
@@ -154,12 +174,19 @@ namespace CharismaSDK.PlugNPlay
 
         private void OnSpeechRecognitionResult(SpeechRecognitionResult message)
         {
-            _recognizedText = message.text;
+            _currentRecognizedText = message.text;
 
             var player = _entities.GetPlayerEntity();
+            
+            if (message.isFinal)
+            {
+                _recognizedSpeechTextList.Add(_currentRecognizedText);
+                _currentRecognizedText = "";
+            }
+            
             if (player != default)
             {
-                player.SendSpeechResult(_recognizedText);
+                player.SendSpeechResult(CurrentRecognizedText);
             }
         }
 
@@ -167,6 +194,7 @@ namespace CharismaSDK.PlugNPlay
         {
             if (listening)
             {
+                _recognizedSpeechTextList.Clear();
                 _playthrough.StartSpeechRecognition(this.gameObject);
             }
             else
