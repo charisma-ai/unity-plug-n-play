@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CharismaSDK.PlugNPlay
 {
@@ -88,16 +90,34 @@ namespace CharismaSDK.PlugNPlay
             /// Goes thru all the current requests and confirms that they've all completed
             /// this is done by deferring to the animator and checking the current hash on each layer
             /// </summary>
-            internal bool HaveRequestsFinished(Animator animator)
+            internal void CheckFinishRequestedAnims(Animator animator)
             {
-                bool result = true;
                 foreach (var entry in _animHistory)
                 {
                     if (entry.Value.Completed)
                     {
                         continue;
                     }
+                    
+                    entry.Value.MarkAsComplete();
+                }
+            }
+            
+            /// <summary>
+            /// Goes thru all the current requests and confirms that they've all completed
+            /// this is done by deferring to the animator and checking the current hash on each layer
+            /// </summary>
+            internal bool HaveRequestsFinished(Animator animator)
+            {
+                bool result = true;
 
+                foreach (var entry in _animHistory)
+                {
+                    if (entry.Value.Completed)
+                    {
+                        continue;
+                    }
+                    
                     var stateInfo = animator.GetCurrentAnimatorStateInfo(entry.Key);
 
                     if (stateInfo.shortNameHash == entry.Value.AnimationHash)
@@ -105,7 +125,7 @@ namespace CharismaSDK.PlugNPlay
                         result = false;
                         break;
                     }
-
+                    
                     if(result == true)
                     {
                         entry.Value.MarkAsComplete();
@@ -122,7 +142,7 @@ namespace CharismaSDK.PlugNPlay
         private Animator _animator;
 
         [SerializeField]
-        private SkinnedMeshRenderer _headSkinnedMeshRenderer;
+        private List<SkinnedMeshRenderer> _meshRenderersForAnimation;
 
         [SerializeField]
         private HumanoidNPCAnimationConfig _npcAnimationConfig;
@@ -132,8 +152,11 @@ namespace CharismaSDK.PlugNPlay
 
         [SerializeField]
         private bool _blinkingEnabled = true;
+        
+        [SerializeField]
+        private List<string> _lipsyncBlendshapeNames;
 
-        private BlendshapesAnimator _blendshapesAnimator;
+        private List<BlendshapesAnimator> _blendshapesAnimators = new List<BlendshapesAnimator>();
         private BaseLookAt _lookAt;
         private BaseTurnTo _turnTo;
 
@@ -150,9 +173,13 @@ namespace CharismaSDK.PlugNPlay
 
         private bool _hasBlinked;
 
+        // unity does not allow two different layers to crossfade at the same time, without an awkward tpose
+        // doing a crossfade on the FIRST layer change seems to fix it
+        private bool _crossfadeRequestedThisFrame = false;
+
         void Start()
         {
-            InitialiseBlendshapesAnimator();
+            InitialiseBlendshapesAnimators();
             InitialiseLookAtController();
             InitialiseTurnToController();
 
@@ -168,9 +195,16 @@ namespace CharismaSDK.PlugNPlay
 
         void Update()
         {
-            _blendshapesAnimator?.Update(false);
+            foreach (var animator in _blendshapesAnimators)
+            {
+                animator.UpdateShapeWeight();
+            }
+            
             _turnTo?.Update();
             BlinkUpdate();
+
+            // cleanup crossfade request, since only one can be requested per frame
+            _crossfadeRequestedThisFrame = false;
         }
 
         private void OnAnimatorIK(int layerIndex)
@@ -199,7 +233,15 @@ namespace CharismaSDK.PlugNPlay
                 SetFacialExpression(expression, modifier, instant: instant);
             }
         }
-
+        
+        /// <summary>
+        /// Finishes currently playing animations
+        /// </summary>
+        internal void CheckFinishRequestedAnims()
+        {
+            _lastRequestedAnims.CheckFinishRequestedAnims(_animator);
+        }
+        
         /// <summary>
         /// Returns if the requested animations have finished
         /// </summary>
@@ -217,13 +259,17 @@ namespace CharismaSDK.PlugNPlay
         /// <param name="instant">If the expression should be applied instantly</param>
         public void SetFacialExpression(NpcFacialExpression expression, float modifier = 1, float duration = 0f, bool instant = false)
         {
-            if (_blendshapesAnimator == default)
+            if (_blendshapesAnimators == default)
             {
-                InitialiseBlendshapesAnimator();
+                InitialiseBlendshapesAnimators();
             }
 
-            Debug.Log($"[SetFacialExpression] Facial expression set to {expression.name}: {modifier}");
-            _blendshapesAnimator?.SetBlendshapesFromFacialExpression(expression, modifier, duration, instant);
+            Debug.Log($"[SetFacialExpression][{this.gameObject.name}] Facial expression set to {expression.name}: {modifier}");
+
+            foreach (var animator in _blendshapesAnimators)
+            {
+                animator.SetBlendshapesFromFacialExpression(expression, modifier, duration, instant);
+            }
         }
 
         /// <summary>
@@ -232,13 +278,17 @@ namespace CharismaSDK.PlugNPlay
         /// <param name="instant"></param>
         public void ResetFacialExpression(bool instant = false)
         {
-            if (_blendshapesAnimator == default)
+            if (_blendshapesAnimators == default)
             {
-                InitialiseBlendshapesAnimator();
+                InitialiseBlendshapesAnimators();
             }
 
             Debug.Log($"[ResetFacialExpression] Clearing Facial expresssion.");
-            _blendshapesAnimator?.SetBlendshapesFromFacialExpression(null, instant: instant);
+            
+            foreach (var animator in _blendshapesAnimators)
+            {
+                animator.SetBlendshapesFromFacialExpression(null, instant: instant);
+            }
         }
         #endregion
 
@@ -255,6 +305,8 @@ namespace CharismaSDK.PlugNPlay
             {
                 InitialiseLookAtController();
             }
+
+            Debug.Log($"[SetLookAtTarget] {this.name}, instant: {instant}");
 
             _lookAt?.SetLookAtTarget(targetToLookAt, instant);
         }
@@ -341,14 +393,32 @@ namespace CharismaSDK.PlugNPlay
 
             if (force)
             {
-                _animator.Play(animationNode, layer.LayerId);
+                // Slight transition, less jarring
+                StartCoroutine(CrossfadeAnim(animationNode, 0.15f, layer));
             }
             else
             {
-                _animator.CrossFade(animationNode, 0.75f, layer.LayerId);
+                if (!_crossfadeRequestedThisFrame)
+                {
+                    StartCoroutine(CrossfadeAnim(animationNode, 0.75f, layer));
+                }
+                else
+                {
+                    _animator.Play(animationNode, layer.LayerId);
+                }
             }
 
             Debug.Log($"[RequestAnimation] {this.name} - Setting animation {animationNode} on layer {layer.LayerName}.");
+        }
+        
+        private IEnumerator CrossfadeAnim(string animationNode, float crossfadeDuration, AnimationLayerData layer)
+        {
+            while (_animator.IsInTransition(layer.LayerId))
+            {
+                yield return null;
+            }
+            
+            _animator.CrossFade(animationNode, crossfadeDuration, layer.LayerId);
         }
 
         /// <summary>
@@ -369,11 +439,7 @@ namespace CharismaSDK.PlugNPlay
         /// <param name="force">Applies the animation regardless of any requests are still being fulfilled</param>
         public void RequestAnimationWithFlagsAndEmotion(AnimationFlags flag, string emotionToApply, bool force = false)
         {
-            if (!HasRequestedAnimationFinished())
-            {
-                Debug.LogWarning($"[RequestAnimationWithFlags] Received animation request while another has yet to finish. Skipping request for {flag}, {emotionToApply}");
-                return;
-            }
+            CheckFinishRequestedAnims();
 
             ParseAnimationRequest(flag, emotionToApply, force);
         }
@@ -392,6 +458,13 @@ namespace CharismaSDK.PlugNPlay
         private void ParseAnimationRequest(AnimationFlags flag, string emotionToApply, bool force = false)
         {
             _pendingAnims.Clear();
+
+            Debug.LogWarning($"Parsing anim request for flags '{flag}' and feeling '{emotionToApply}' found in database");
+
+            if (emotionToApply == null)
+            {
+                emotionToApply = "";
+            }
 
             // look for anims that feature the required flags
             foreach(var layer in _npcAnimationConfig.AnimationMetadata.AnimationLayers)
@@ -484,7 +557,7 @@ namespace CharismaSDK.PlugNPlay
             }
 
             // look for non-emotional anims, if an emotion was requested and nothing was found
-            if (pendingAnimsCount == 0 && emotionToApply != "")
+            if (pendingAnimsCount == 0 && !string.IsNullOrEmpty(emotionToApply))
             {
                 Debug.LogWarning($"[PlayRandomAnimation] No animations associated with flag '{flag}' and feeling '{emotionToApply}' found in database");
                 ParseAnimationRequest(flag, "", force);
@@ -562,15 +635,19 @@ namespace CharismaSDK.PlugNPlay
             }
         }
 
-        private void InitialiseBlendshapesAnimator()
+        private void InitialiseBlendshapesAnimators()
         {
-            if (_headSkinnedMeshRenderer == default)
+            if (_meshRenderersForAnimation == default)
             {
                 Debug.LogError($"[InitialiseBlendshapesAnimator] Head SkinnedMeshRenderer not set on {this.name}. Unable to set facial expressions.");
                 return;
             }
-
-            _blendshapesAnimator = new BlendshapesAnimator(_headSkinnedMeshRenderer);
+            
+            foreach (var meshForAnimation in _meshRenderersForAnimation)
+            {
+                var newAnimator = new BlendshapesAnimator(meshForAnimation, _lipsyncBlendshapeNames);
+                _blendshapesAnimators.Add(newAnimator);
+            }
         }
 
         private void InitialiseLookAtController()
@@ -598,7 +675,7 @@ namespace CharismaSDK.PlugNPlay
 
         private void BlinkUpdate()
         {
-            if (_headSkinnedMeshRenderer == null)
+            if (_meshRenderersForAnimation == null)
             {
                 return;
             }
@@ -627,7 +704,10 @@ namespace CharismaSDK.PlugNPlay
 
                 foreach (var bs in _npcAnimationConfig.BlinkBlendshapes)
                 {
-                    _blendshapesAnimator.SetBlendshapesForEyeBlink(bs.BlendName, weight);
+                    foreach (var blendshapeAnimator in _blendshapesAnimators)
+                    {
+                        blendshapeAnimator.SetBlendshapesForEyeBlink(bs.BlendName, weight);
+                    }
                 }
 
                 // no longer blinking

@@ -13,28 +13,24 @@ MonoBehaviour:
   m_Name: Frown
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: ANGER
-  _blendshapes:
-  - BlendName: BS.brow_lower_R
-    BlendInt: 32
-    Intensity: 80
-  - BlendName: BS.brow_squeeze_R
-    BlendInt: 33
-    Intensity: 80.3
-  - BlendName: BS.brow_lower_L
-    BlendInt: 38
-    Intensity: 80
-  - BlendName: BS.brow_squeeze_L
-    BlendInt: 39
-    Intensity: 80
-  - BlendName: BS.squint_R
-    BlendInt: 46
-    Intensity: 35.4
-  - BlendName: BS.squint_L
-    BlendInt: 52
-    Intensity: 37.4
-  - BlendName: BS.mouth_lower_R
-    BlendInt: 94
-    Intensity: 17.7
-  - BlendName: BS.mouth_lower_L
-    BlendInt: 98
-    Intensity: 18.3
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.brow_lower_R
+          Intensity: 80
+        - BlendName: BS.brow_squeeze_R
+          Intensity: 80.3
+        - BlendName: BS.brow_lower_L
+          Intensity: 80
+        - BlendName: BS.brow_squeeze_L
+          Intensity: 80
+        - BlendName: BS.squint_R
+          Intensity: 35.4
+        - BlendName: BS.squint_L
+          Intensity: 37.4
+        - BlendName: BS.mouth_lower_R
+          Intensity: 17.7
+        - BlendName: BS.mouth_lower_L
+          Intensity: 18.3

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Sad
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: DISTRESS
-  _blendshapes:
-  - BlendName: BS.sad_M
-    BlendInt: 26
-    Intensity: 100
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.sad_M
+          Intensity: 100

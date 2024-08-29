@@ -27,17 +27,19 @@ namespace CharismaSDK.PlugNPlay
         /// Registers facial expression to this Collection
         /// Generates the various target blendshapes and intensities associated with the facial animation
         /// </summary>
-        internal void Register(NpcFacialExpression facialAnimation)
+        internal void Register(NpcFacialExpression facialAnimation, SkinnedMeshRenderer smr)
         {
             var blendshapesDictionary = _mesh.GetBlendshapesDic();
 
             var indexedBlendshapes = new Dictionary<int, float>();
 
+            var blendshapeGroup = facialAnimation.BlendshapeGroups[smr.name];
+
             foreach (var entry in blendshapesDictionary)
             {
                 float intensity = 0.0f;
 
-                foreach (var blendshape in facialAnimation.Blendshapes)
+                foreach (var blendshape in blendshapeGroup.Blendshapes)
                 {
                     if (blendshape.BlendName == entry.Key)
                     {

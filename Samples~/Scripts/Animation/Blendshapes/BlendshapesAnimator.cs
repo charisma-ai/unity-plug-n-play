@@ -26,8 +26,7 @@ namespace CharismaSDK.PlugNPlay
             // Current weight to be applied to this Blendshape
             public float CurrentWeight => _currentWeight;
 
-            public bool IsAnimating => _motion != BlendshapeMotion.Inactive
-                && _motion != BlendshapeMotion.HoldIntensity;
+            public bool IsAnimating => _motion != BlendshapeMotion.Inactive && _motion != BlendshapeMotion.HoldIntensity;
 
             // Current Motion state
             private BlendshapeMotion _motion = BlendshapeMotion.Inactive;
@@ -83,6 +82,18 @@ namespace CharismaSDK.PlugNPlay
                 _currentWeight = _baselineWeight;
                 _motion = BlendshapeMotion.Inactive;
             }
+            
+            /// <summary>
+            /// Reset to baseline weights
+            /// And return Blendshape to inactive
+            /// </summary>
+            internal void ResetAnimate(float speed)
+            {
+                _motion = BlendshapeMotion.ReturnToBaseValue;
+                _targetWeight = _baselineWeight;
+                _maxblendingSpeed = speed;
+                _holdTimer = 0;
+            }
 
             internal void Update()
             {
@@ -107,7 +118,7 @@ namespace CharismaSDK.PlugNPlay
                         }
                         break;
                     case BlendshapeMotion.ReturnToBaseValue:
-                        if (BlendToBase(_baselineWeight))
+                        if (BlendToTarget(_baselineWeight))
                         {
                             _blendingVelocity = 0f;
                             _motion = BlendshapeMotion.Inactive;
@@ -131,42 +142,23 @@ namespace CharismaSDK.PlugNPlay
                     _maxblendingSpeed, deltaTime: Time.deltaTime);
 
                 // increment by 1, smoothdamp can take ages due to smoothening and floating point error
-                _currentWeight = resultWeight + 1;
+                _currentWeight = resultWeight;
 
                 // if no longer moving, we've reached our destination
-                if (_currentWeight >= _targetWeight)
+                if (Mathf.Abs(_currentWeight-_targetWeight) < 0.1f)
                 {
                     return true;
                 }
 
                 return false;
             }
-
-            /// <summary>
-            /// Blend to base value
-            /// goes in the opposite direction and is handled slightly differently
-            /// </summary>
-            /// <param name="target">Target value to blend to</param>
-            /// <returns>Returns whether we have reached the desired target</returns>
-            private bool BlendToBase(float baseValue)
-            {
-                _currentWeight -= Time.deltaTime * (_maxblendingSpeed / 3);
-
-                if (_currentWeight <= baseValue)
-                {
-                    return true;
-                }
-
-                return false;
-            }
+            
         }
 
         private Dictionary<int, BlendshapeControl> _blendshapeControls = new Dictionary<int, BlendshapeControl>();
 
         // Speed of animation in MS per frame
-        // TODO: magic number - clarify what this is
-        private const float MIN_ANIMATION_SPEED = 80;
-        private const float MAX_ANIMATION_SPEED = 200;
+        private const float ANIMATION_SPEED_MS = 150f;
 
         private const float MINIMUM_EXPRESSION_DURATION = 5f;
 
@@ -178,8 +170,9 @@ namespace CharismaSDK.PlugNPlay
 
         // Empty container, used to prevent new dicts created at runtime
         private Dictionary<int, float> _emptyDictionary = new Dictionary<int, float>();
+        private List<int> _lipsyncBlendShapes = new List<int>();
 
-        public BlendshapesAnimator(SkinnedMeshRenderer smr)
+        public BlendshapesAnimator(SkinnedMeshRenderer smr, List<string> lipsyncBlendshapeNames)
         {
             _smr = smr;
             _blendshapeCollection = new FacialExpressionBlendshapeCollection(_smr.sharedMesh);
@@ -189,6 +182,14 @@ namespace CharismaSDK.PlugNPlay
             {
                 var baselineWeight = smr.GetBlendShapeWeight(entry.Value);
                 _blendshapeControls.Add(entry.Value, new BlendshapeControl(baselineWeight));
+            }
+
+            foreach (var lipsyncBlendshapeName in lipsyncBlendshapeNames)
+            {
+                if (blendShapeDictionary.TryGetValue(lipsyncBlendshapeName, out var index))
+                {
+                    _lipsyncBlendShapes.Add(index);
+                }
             }
         }
 
@@ -201,37 +202,29 @@ namespace CharismaSDK.PlugNPlay
         /// <param name="instant">If the expression should be applied instantly</param>
         public void SetBlendshapesFromFacialExpression(NpcFacialExpression facialExpression, float multiplier = 1, float duration = 0.0f, bool instant = false)
         {
-            bool removeFacialExpression = false;
-            if (multiplier == 0 || facialExpression == default)
-            {
-                removeFacialExpression = true;
-            }
+            bool removeFacialExpression = multiplier == 0 || facialExpression == default;
 
             Dictionary<int, float> newTargets = _emptyDictionary;
+            
             if (!removeFacialExpression)
             {
                 GetBlendshapesForFacialAnimation(facialExpression, out newTargets);
             }
-
+            
             if (!instant)
             {
                 // Reset targets
                 foreach (var blend in _blendshapeControls)
                 {
-                    blend.Value.Reset();
-                }
-
-                // Set new blendshape targets
-                foreach (var blendshape in newTargets)
-                {
-                    var weight = blendshape.Value * multiplier;
-                    var speed = Random.Range(MIN_ANIMATION_SPEED, MAX_ANIMATION_SPEED);
-                    // Minimum duration clamp, to prevent awkward facial animation
-                    if (duration < MINIMUM_EXPRESSION_DURATION)
+                    if (newTargets.TryGetValue(blend.Key, out var target))
                     {
-                        duration = MINIMUM_EXPRESSION_DURATION;
+                        var weight = target * multiplier;
+                        blend.Value.StartAnimating(weight, ANIMATION_SPEED_MS, MINIMUM_EXPRESSION_DURATION);
                     }
-                    _blendshapeControls[blendshape.Key].StartAnimating(weight, speed, duration);
+                    else
+                    {
+                        blend.Value.ResetAnimate(ANIMATION_SPEED_MS);
+                    }
                 }
             }
             else
@@ -254,14 +247,22 @@ namespace CharismaSDK.PlugNPlay
         {
             if (!_blendshapeCollection.Contains(facialAnimation))
             {
-                _blendshapeCollection.Register(facialAnimation);
+                _blendshapeCollection.Register(facialAnimation, _smr);
             }
+            
             newTargets = _blendshapeCollection.GetBlendshapeTargets(facialAnimation);
+
+            foreach (var lipsyncBlendShape in _lipsyncBlendShapes)
+            {
+                if (newTargets.ContainsKey(lipsyncBlendShape))
+                {
+                    newTargets.Remove(lipsyncBlendShape);
+                }
+            }
         }
 
         /// <summary>
         /// direct blendshape setter for eyeblink.
-        /// TODO: this is too external - implementation should be moved in here.
         /// </summary>
         public void SetBlendshapesForEyeBlink(string blendShapeName, float weight)
         {
@@ -269,11 +270,11 @@ namespace CharismaSDK.PlugNPlay
             _smr.SetBlendShapeWeight(blendShapeDictionary[blendShapeName], weight);
         }
 
-        public void Update(bool dampen)
+        public void UpdateShapeWeight()
         {
             foreach (var indexWeight in _blendshapeControls)
             {
-                TrySetBlendShapeWeight(indexWeight, dampen);
+                TrySetBlendShapeWeight(indexWeight);
             }
         }
         
@@ -282,7 +283,7 @@ namespace CharismaSDK.PlugNPlay
         /// </summary>
         /// <param name="indexWeight">Dictionary pairing formed of the blendshape index and the control object</param>
         /// <param name="dampen">Wether to dampen the facial expression or not. Lowers intensity by 0.75 currently</param>
-        private void TrySetBlendShapeWeight(KeyValuePair<int, BlendshapeControl> indexWeight, bool dampen)
+        private void TrySetBlendShapeWeight(KeyValuePair<int, BlendshapeControl> indexWeight)
         {
             indexWeight.Value.Update();
 
@@ -290,11 +291,8 @@ namespace CharismaSDK.PlugNPlay
             {
                 return;
             }
-
-            var targetWeight = dampen ? indexWeight.Value.CurrentWeight * 0.75f
-                : indexWeight.Value.CurrentWeight;
-
-            _smr.SetBlendShapeWeight(indexWeight.Key, targetWeight);
+            
+            _smr.SetBlendShapeWeight(indexWeight.Key, indexWeight.Value.CurrentWeight);
         }
     }
 }

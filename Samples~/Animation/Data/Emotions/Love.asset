@@ -13,22 +13,20 @@ MonoBehaviour:
   m_Name: Love
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: LOVE
-  _blendshapes:
-  - BlendName: BS.contempt_M
-    BlendInt: 22
-    Intensity: 53.6
-  - BlendName: BS.happy_M
-    BlendInt: 28
-    Intensity: 58.6
-  - BlendName: BS.brow_innerRaiser_R
-    BlendInt: 29
-    Intensity: 100
-  - BlendName: BS.brow_innerRaiser_L
-    BlendInt: 35
-    Intensity: 100
-  - BlendName: BS.cheek_raiser_R
-    BlendInt: 55
-    Intensity: 28.3
-  - BlendName: BS.cheek_raiser_L
-    BlendInt: 58
-    Intensity: 29.5
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.contempt_M
+          Intensity: 53.6
+        - BlendName: BS.happy_M
+          Intensity: 58.6
+        - BlendName: BS.brow_innerRaiser_R
+          Intensity: 100
+        - BlendName: BS.brow_innerRaiser_L
+          Intensity: 100
+        - BlendName: BS.cheek_raiser_R
+          Intensity: 28.3
+        - BlendName: BS.cheek_raiser_L
+          Intensity: 29.5

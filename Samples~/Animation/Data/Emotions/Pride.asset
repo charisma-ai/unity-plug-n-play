@@ -13,34 +13,28 @@ MonoBehaviour:
   m_Name: Pride
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: PRIDE
-  _blendshapes:
-  - BlendName: BS.happy_M
-    BlendInt: 28
-    Intensity: 42.5
-  - BlendName: BS.brow_raiser_R
-    BlendInt: 31
-    Intensity: 33.7
-  - BlendName: BS.brow_outerUpDown_R
-    BlendInt: 34
-    Intensity: 24.7
-  - BlendName: BS.brow_outerUpDown_L
-    BlendInt: 40
-    Intensity: 26.2
-  - BlendName: BS.cheek_raiser_R
-    BlendInt: 55
-    Intensity: 29.8
-  - BlendName: BS.mouth_upperRollIn_M
-    BlendInt: 78
-    Intensity: 26.9
-  - BlendName: BS.mouth_lowerRollIn_M
-    BlendInt: 80
-    Intensity: 29.3
-  - BlendName: BS.mouth_wide_R
-    BlendInt: 91
-    Intensity: 36.9
-  - BlendName: BS.mouth_raiser_R
-    BlendInt: 93
-    Intensity: 18.6
-  - BlendName: BS.mouth_lower_L
-    BlendInt: 98
-    Intensity: 12.4
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.happy_M
+          Intensity: 42.5
+        - BlendName: BS.brow_raiser_R
+          Intensity: 33.7
+        - BlendName: BS.brow_outerUpDown_R
+          Intensity: 24.7
+        - BlendName: BS.brow_outerUpDown_L
+          Intensity: 26.2
+        - BlendName: BS.cheek_raiser_R
+          Intensity: 29.8
+        - BlendName: BS.mouth_upperRollIn_M
+          Intensity: 26.9
+        - BlendName: BS.mouth_lowerRollIn_M
+          Intensity: 29.3
+        - BlendName: BS.mouth_wide_R
+          Intensity: 36.9
+        - BlendName: BS.mouth_raiser_R
+          Intensity: 18.6
+        - BlendName: BS.mouth_lower_L
+          Intensity: 12.4

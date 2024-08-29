@@ -13,31 +13,26 @@ MonoBehaviour:
   m_Name: Interest
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: INTEREST
-  _blendshapes:
-  - BlendName: BS.brow_raiser_R
-    BlendInt: 31
-    Intensity: 28.3
-  - BlendName: BS.brow_outerUpDown_R
-    BlendInt: 34
-    Intensity: 50.3
-  - BlendName: BS.brow_lower_L
-    BlendInt: 38
-    Intensity: 26.2
-  - BlendName: BS.cheek_raiser_R
-    BlendInt: 55
-    Intensity: 28.3
-  - BlendName: BS.cheek_raiser_L
-    BlendInt: 58
-    Intensity: 28.8
-  - BlendName: BS.mouth_narrow_M
-    BlendInt: 66
-    Intensity: 31.5
-  - BlendName: BS.mouth_lipSide_R
-    BlendInt: 90
-    Intensity: 22
-  - BlendName: BS.mouth_wide_R
-    BlendInt: 91
-    Intensity: 23
-  - BlendName: BS.mouth_raiser_R
-    BlendInt: 93
-    Intensity: 22.7
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.brow_raiser_R
+          Intensity: 28.3
+        - BlendName: BS.brow_outerUpDown_R
+          Intensity: 50.3
+        - BlendName: BS.brow_lower_L
+          Intensity: 26.2
+        - BlendName: BS.cheek_raiser_R
+          Intensity: 28.3
+        - BlendName: BS.cheek_raiser_L
+          Intensity: 28.8
+        - BlendName: BS.mouth_narrow_M
+          Intensity: 31.5
+        - BlendName: BS.mouth_lipSide_R
+          Intensity: 22
+        - BlendName: BS.mouth_wide_R
+          Intensity: 23
+        - BlendName: BS.mouth_raiser_R
+          Intensity: 22.7

@@ -13,31 +13,26 @@ MonoBehaviour:
   m_Name: Fear
   m_EditorClassIdentifier: 
   _associatedCharismaEmotion: FEAR
-  _blendshapes:
-  - BlendName: BS.fear_M
-    BlendInt: 24
-    Intensity: 100
-  - BlendName: BS.squint_R
-    BlendInt: 46
-    Intensity: 25.9
-  - BlendName: BS.squint_L
-    BlendInt: 52
-    Intensity: 28.1
-  - BlendName: BS.cheek_raiser_R
-    BlendInt: 55
-    Intensity: 29.6
-  - BlendName: BS.cheek_raiser_L
-    BlendInt: 58
-    Intensity: 27.9
-  - BlendName: BS.nose_raiser_R
-    BlendInt: 61
-    Intensity: 50.6
-  - BlendName: BS.nose_raiser_L
-    BlendInt: 64
-    Intensity: 44
-  - BlendName: BS.mouth_close_M
-    BlendInt: 67
-    Intensity: 35.7
-  - BlendName: BS.mouth_lowerSqueezeIn_M
-    BlendInt: 75
-    Intensity: 15.4
+  _blendShapeGroups:
+    _serializedList:
+    - Key: Head
+      Value:
+        _blendshapes:
+        - BlendName: BS.fear_M
+          Intensity: 100
+        - BlendName: BS.squint_R
+          Intensity: 25.9
+        - BlendName: BS.squint_L
+          Intensity: 28.1
+        - BlendName: BS.cheek_raiser_R
+          Intensity: 29.6
+        - BlendName: BS.cheek_raiser_L
+          Intensity: 27.9
+        - BlendName: BS.nose_raiser_R
+          Intensity: 50.6
+        - BlendName: BS.nose_raiser_L
+          Intensity: 44
+        - BlendName: BS.mouth_close_M
+          Intensity: 35.7
+        - BlendName: BS.mouth_lowerSqueezeIn_M
+          Intensity: 15.4
