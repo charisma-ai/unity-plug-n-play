@@ -98,11 +98,11 @@ namespace CharismaSDK.PlugNPlay
                     {
                         continue;
                     }
-                    
+
                     entry.Value.MarkAsComplete();
                 }
             }
-            
+
             /// <summary>
             /// Goes thru all the current requests and confirms that they've all completed
             /// this is done by deferring to the animator and checking the current hash on each layer
@@ -117,7 +117,7 @@ namespace CharismaSDK.PlugNPlay
                     {
                         continue;
                     }
-                    
+
                     var stateInfo = animator.GetCurrentAnimatorStateInfo(entry.Key);
 
                     if (stateInfo.shortNameHash == entry.Value.AnimationHash)
@@ -125,7 +125,7 @@ namespace CharismaSDK.PlugNPlay
                         result = false;
                         break;
                     }
-                    
+
                     if(result == true)
                     {
                         entry.Value.MarkAsComplete();
@@ -152,7 +152,7 @@ namespace CharismaSDK.PlugNPlay
 
         [SerializeField]
         private bool _blinkingEnabled = true;
-        
+
         [SerializeField]
         private List<string> _lipsyncBlendshapeNames;
 
@@ -199,7 +199,7 @@ namespace CharismaSDK.PlugNPlay
             {
                 animator.UpdateShapeWeight();
             }
-            
+
             _turnTo?.Update();
             BlinkUpdate();
 
@@ -209,9 +209,9 @@ namespace CharismaSDK.PlugNPlay
 
         private void OnAnimatorIK(int layerIndex)
         {
-            _lookAt?.Update(); 
+            _lookAt?.Update();
         }
-        
+
         #region Public Functions
 
         #region Facial Expressions
@@ -233,7 +233,7 @@ namespace CharismaSDK.PlugNPlay
                 SetFacialExpression(expression, modifier, instant: instant);
             }
         }
-        
+
         /// <summary>
         /// Finishes currently playing animations
         /// </summary>
@@ -241,7 +241,7 @@ namespace CharismaSDK.PlugNPlay
         {
             _lastRequestedAnims.CheckFinishRequestedAnims(_animator);
         }
-        
+
         /// <summary>
         /// Returns if the requested animations have finished
         /// </summary>
@@ -284,7 +284,7 @@ namespace CharismaSDK.PlugNPlay
             }
 
             Debug.Log($"[ResetFacialExpression] Clearing Facial expresssion.");
-            
+
             foreach (var animator in _blendshapesAnimators)
             {
                 animator.SetBlendshapesFromFacialExpression(null, instant: instant);
@@ -394,31 +394,14 @@ namespace CharismaSDK.PlugNPlay
             if (force)
             {
                 // Slight transition, less jarring
-                StartCoroutine(CrossfadeAnim(animationNode, 0.15f, layer));
+                _animator.CrossFade(animationNode, 0.1f, layer.LayerId);
             }
             else
             {
-                if (!_crossfadeRequestedThisFrame)
-                {
-                    StartCoroutine(CrossfadeAnim(animationNode, 0.75f, layer));
-                }
-                else
-                {
-                    _animator.Play(animationNode, layer.LayerId);
-                }
+                _animator.CrossFade(animationNode, 0.75f, layer.LayerId);
             }
 
             Debug.Log($"[RequestAnimation] {this.name} - Setting animation {animationNode} on layer {layer.LayerName}.");
-        }
-        
-        private IEnumerator CrossfadeAnim(string animationNode, float crossfadeDuration, AnimationLayerData layer)
-        {
-            while (_animator.IsInTransition(layer.LayerId))
-            {
-                yield return null;
-            }
-            
-            _animator.CrossFade(animationNode, crossfadeDuration, layer.LayerId);
         }
 
         /// <summary>
@@ -439,7 +422,11 @@ namespace CharismaSDK.PlugNPlay
         /// <param name="force">Applies the animation regardless of any requests are still being fulfilled</param>
         public void RequestAnimationWithFlagsAndEmotion(AnimationFlags flag, string emotionToApply, bool force = false)
         {
-            CheckFinishRequestedAnims();
+            if (!HasRequestedAnimationFinished())
+            {
+                Debug.LogWarning($"[RequestAnimationWithFlags] Received animation request while another has yet to finish. Skipping request for {flag}, {emotionToApply}");
+                return;
+            }
 
             ParseAnimationRequest(flag, emotionToApply, force);
         }
@@ -642,7 +629,7 @@ namespace CharismaSDK.PlugNPlay
                 Debug.LogError($"[InitialiseBlendshapesAnimator] Head SkinnedMeshRenderer not set on {this.name}. Unable to set facial expressions.");
                 return;
             }
-            
+
             foreach (var meshForAnimation in _meshRenderersForAnimation)
             {
                 var newAnimator = new BlendshapesAnimator(meshForAnimation, _lipsyncBlendshapeNames);
