@@ -1,6 +1,6 @@
 {
 	"name": "ai.charisma.plugnplay",
-	"version": "0.1.3",
+	"version": "0.1.8",
 	"displayName": "Charisma.ai Plug-N-Play",
 	"description": "Charisma.ai Plug-N-Play for Unity",
 	"unity": "2022.3",
@@ -24,7 +24,7 @@
 		"conversation"
 	],
 	"dependencies": {
-		"ai.charisma.sdk": "0.2.1",
+		"ai.charisma.sdk": "0.2.3",
 		"com.unity.render-pipelines.high-definition": "12.1.7"
 	},
 	"samples": [

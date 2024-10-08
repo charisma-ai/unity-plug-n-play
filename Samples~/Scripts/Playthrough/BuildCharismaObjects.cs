@@ -1,59 +1,47 @@
 
 #if UNITY_EDITOR
 
+using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace CharismaSDK.PlugNPlay
 {
     public static class BuildCharismaObjects
     {
-
         [MenuItem("Charisma/Create Playthrough Metadata")]
         public static void CreateAllMetadataFunctions()
         {
-            DirectoryInfo dir = new DirectoryInfo("Assets/");
-            FileInfo[] info = dir.GetFiles("*Function.cs", SearchOption.AllDirectories);
-            var fullNames = info.Select(f => f.FullName).ToArray();
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes())
+                .Where(type => type.IsSubclassOf(typeof(MetadataFunction)));
 
-            foreach (string f in fullNames)
+            // Display the results
+            foreach (var type in types)
             {
-                var index = f.LastIndexOf(@"\");
-
-                var result = f;
-
-                if (index >= 0)
-                {
-                    result = result.Substring(index + 1);
-                    index = result.IndexOf(@".");
-                    if (index >= 0)
-                    {
-                        result = result.Substring(0, index);
-                    }
-                }
-
-                ScriptableObject asset = ScriptableObject.CreateInstance(result);
+                var asset = ScriptableObject.CreateInstance(type);
 
                 if (asset == null)
                 {
                     continue;
                 }
-
-                string metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.1.3/Example/Data/Playthrough/Metadata/";
+                
+                Debug.Log($"Creating meta function of type: {type.Name}");
+                
+                var metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.1.8/Example/Data/Playthrough/Metadata/";
                 if (!Directory.Exists(metadataFunctionFolder))
                 {
                     Directory.CreateDirectory(metadataFunctionFolder);
                 }
 
-                var path = metadataFunctionFolder + result + ".asset";
+                var path = metadataFunctionFolder + type.Name + ".asset";
                 AssetDatabase.CreateAsset(asset, path);
-
-                Debug.Log("Creating MetadataFunction object at : " + path);
             }
-
-
+            
             AssetDatabase.SaveAssets();
         }
     }
