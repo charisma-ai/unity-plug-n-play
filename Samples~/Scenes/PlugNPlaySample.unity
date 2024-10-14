@@ -309,6 +309,10 @@ MonoBehaviour:
   _speechOptions:
     _audioOutput: 0
     _encoding: 0000000002000000
+  _speechRecognitionOptions:
+    _service: 0
+    _languageCode: en-US
+    _sampleRate: 16000
   _enableLogging: 1
   _useSpeechOutput: 1
   _metadataFunctions:
