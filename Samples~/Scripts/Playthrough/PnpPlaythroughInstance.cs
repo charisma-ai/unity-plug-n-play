@@ -220,6 +220,8 @@ namespace CharismaSDK.PlugNPlay
         {
             Logger.Log(message);
             
+            _onMessageCallback?.Invoke(message);
+            
             // If the message is a panel-node, we should operate on this data without trying to generate audio or access the text & character data of the node since panel-nodes have neither.
             if (message.messageType == MessageType.panel)
             {
@@ -326,6 +328,15 @@ namespace CharismaSDK.PlugNPlay
             }
 
             tryResolveOnComplete?.Invoke();
+        }
+        
+        /// <summary>
+        /// Sets the callback to execute on succesfully receiving a message from the playthrough.
+        /// Should be set before starting the Playthrough.
+        /// </summary>
+        public void AddOnMessageCallback(MessageDelegate callback)
+        {
+            _onMessageCallback += callback;
         }
 
         private void HandleEmotions(CharismaPlaythroughActor actor, MessageEvent message)
