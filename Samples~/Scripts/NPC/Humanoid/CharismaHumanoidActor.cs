@@ -144,7 +144,6 @@ namespace CharismaSDK.PlugNPlay
         
         internal void Interrupt()
         {
-            Debug.LogError("interrupted");
             _characterComponent.Interrupt();
         }
 

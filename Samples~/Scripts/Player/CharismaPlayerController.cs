@@ -12,29 +12,31 @@ namespace CharismaSDK.PlugNPlay
         private CharacterController _characterController;
 
         [SerializeField] private Camera _camera;
-
         [SerializeField] private SimplePlayerUIComponent _playerUI;
-
         [SerializeField] private CharismaInteractableDetector _interactionDetector;
-
         [SerializeField] private float _maximumMovementVelocity = 10;
-
         [SerializeField] private bool _mouseLookEnabled = true;
-
         [SerializeField] private bool _keyboardMovementEnabled = true;
-
-        [Header("Speeds")] [SerializeField] [Range(0, 1)]
+        [SerializeField] private bool _interruptionsEnabled = true;
+        
+        [Header("Speeds")] 
+        [SerializeField] [Range(0, 1)]
         private float _acceleration = 0.75f;
 
-        [SerializeField] private Vector2 _moveSpeed = new Vector2(2.75f, 2.75f);
+        [SerializeField] 
+        private Vector2 _moveSpeed = new Vector2(2.75f, 2.75f);
 
-        [SerializeField] private float _gravity = 9.8f;
+        [SerializeField] 
+        private float _gravity = 9.8f;
 
-        [Header("Looking")] [SerializeField] private float _lookSensitivity = 5;
+        [Header("Looking")] [SerializeField] 
+        private float _lookSensitivity = 5;
 
-        [SerializeField] private bool _doSmoothing;
+        [SerializeField] 
+        private bool _doSmoothing;
 
-        [Range(0, 1)] [SerializeField] private float _smoothing = 0.6f;
+        [Range(0, 1)] [SerializeField] 
+        private float _smoothing = 0.6f;
 
         private PlaythroughInstanceBase _playthroughInstance;
         private List<CharismaHumanoidActor> _interruptNPCTargets;
@@ -43,15 +45,9 @@ namespace CharismaSDK.PlugNPlay
         private Vector2 _lastFrameInput;
         private string _pendingText;
         private bool _sentReplyThisCycle;
-
-        private enum PlayerState
-        {
-            Movement,
-            Replying
-        }
-
+        private bool _isTalking;
+        private bool _isWriting;
         private Action<string> _sendReply;
-
         private Vector3 _moveDirection;
         private Vector2 _actualDiffMouse;
         private float _cameraVerticalRotation;
@@ -61,8 +57,7 @@ namespace CharismaSDK.PlugNPlay
         public override event SpeechRecognitionStatusDelegate StopVoiceRecognition;
 
         public static CharismaPlayerController Instance;
-
-        // Update is called once per frame
+        
         void Awake()
         {
             if (Instance == null)
@@ -107,7 +102,7 @@ namespace CharismaSDK.PlugNPlay
 
         private void OnLookUpdate()
         {
-            if (!_mouseLookEnabled)
+            if (!_mouseLookEnabled || _isWriting || _isTalking)
             {
                 return;
             }
@@ -115,7 +110,6 @@ namespace CharismaSDK.PlugNPlay
             _actualDiffMouse = Vector2.zero;
             _actualDiffMouse.x = Input.GetAxis("Mouse X");
             _actualDiffMouse.y = Input.GetAxis("Mouse Y");
-
             _actualDiffMouse *= _lookSensitivity;
 
             if (_actualDiffMouse * Time.timeScale != Vector2.zero)
@@ -154,10 +148,7 @@ namespace CharismaSDK.PlugNPlay
 
             if (_skipMovement)
             {
-                if (!(inputX > 0
-                      || inputX < 0
-                      || inputY > 0
-                      || inputY < 0))
+                if (!(inputX > 0 || inputX < 0 || inputY > 0 || inputY < 0))
                 {
                     _skipMovement = false;
                 }
@@ -206,6 +197,11 @@ namespace CharismaSDK.PlugNPlay
 
         public override bool TryInterrupt()
         {
+            if (_interruptionsEnabled)
+            {
+                return false;
+            }
+
             var anyNpcInterrupted = false;
 
             foreach (var npc in _interruptNPCTargets)
@@ -217,7 +213,11 @@ namespace CharismaSDK.PlugNPlay
                 }
             }
 
-            _playthroughInstance.SetAction("interrupt");
+            if (anyNpcInterrupted)
+            {
+                _playthroughInstance.SetAction("interrupt");
+            }
+            
             return anyNpcInterrupted;
         }
 
@@ -225,10 +225,7 @@ namespace CharismaSDK.PlugNPlay
         {
             // TODO - Not needed for now.
         }
-
-        private bool _isTalking;
-        private bool _isWriting;
-
+        
         private void OnInteractionUpdate()
         {
             UpdateSpeechRecognition();
