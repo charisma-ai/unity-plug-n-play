@@ -33,6 +33,9 @@ namespace CharismaSDK.PlugNPlay
         
         [SerializeField]
         private UnityEvent _onStoryEnd;
+
+        [SerializeField] 
+        private CharismaPlaythroughActor _currentSpeaker;
         
         // STT
         private List<string> _recognizedSpeechTextList = new List<string>();
@@ -134,22 +137,6 @@ namespace CharismaSDK.PlugNPlay
 
             // Send a reply to our current conversation.
             _playthrough.Reply(_conversationUuid, reply);
-        }
-
-        /// <summary>
-        /// Sends an action to the current playthrough.
-        /// </summary>
-        /// <param name="reply"></param>
-        public void SetAction(string action)
-        {
-            if (!IsPlaythroughLoaded())
-            {
-                Logger.Log("Playthrough was not loaded. Please call LoadPlaythrough() first.");
-                return;
-            }
-
-            // Send an action to our current conversation.
-            _playthrough.Action(_conversationUuid, action);
         }
 
         /// <summary>
@@ -267,6 +254,7 @@ namespace CharismaSDK.PlugNPlay
             // some information may be necessary even if that Subscriber does not own the message
             if (fullSend)
             {
+                _currentSpeaker = actor;
                 FullSend(actor, message);
             }
             else if (partialSend)

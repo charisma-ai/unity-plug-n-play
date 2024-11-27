@@ -1,4 +1,3 @@
-
 namespace CharismaSDK.PlugNPlay
 {
     internal class SetPlayerSpeakFunction : MetadataFunction
@@ -7,14 +6,13 @@ namespace CharismaSDK.PlugNPlay
 
         public override void Execute(string metadataValue)
         {
-            if (metadataValue == "true" || metadataValue == "")
-            {
-                var player = Dependencies.PlaythroughEntities.GetPlayerEntity();
+            bool repliesEnabled = metadataValue == "true";
 
-                if (player != default)
-                {
-                    player.SetReadyToReply();
-                }
+            var player = Dependencies.PlaythroughEntities.GetPlayerEntity();
+
+            if (player != default)
+            {
+                player.SetPlayerInputFieldActive(repliesEnabled);
             }
         }
     }

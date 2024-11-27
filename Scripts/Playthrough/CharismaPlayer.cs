@@ -9,17 +9,16 @@ namespace CharismaSDK.PlugNPlay
     /// </summary>
     public abstract class CharismaPlayer : MonoBehaviour
     {
-
         // Delegate used to inform if speech recognition has started or stopped
-        public delegate void StartSpeechRecognitionDelegate(bool listening);
+        public delegate void SpeechRecognitionStatusDelegate(bool listening);
 
         // Event for when VoiceRecognition starts
         // should be hooked up when that behaviour is expected to inform the playthrough
-        public abstract event StartSpeechRecognitionDelegate StartVoiceRecognition;
+        public abstract event SpeechRecognitionStatusDelegate StartVoiceRecognition;
 
         // Event for when VoiceRecognition end
         // should be hooked up when that behaviour is expected to inform the playthrough
-        public abstract event StartSpeechRecognitionDelegate StopVoiceRecognition;
+        public abstract event SpeechRecognitionStatusDelegate StopVoiceRecognition;
 
         /// <summary>
         /// Sets a local reply callback
@@ -32,12 +31,23 @@ namespace CharismaSDK.PlugNPlay
         /// Called when the Player is ready to reply
         /// Current example has it set up to the "set-player-speak" metadata which is the standard use-case
         /// </summary>
-        public abstract void SetReadyToReply();
+        public abstract void SetPlayerInputFieldActive(bool repliesEnabled);
 
         /// <summary>
         /// Function, used to inform the Player of what the speech recognition result came back from the Playthrough
         /// </summary>
         /// <param name="recognizedText"></param>
         public abstract void SendSpeechResult(string recognizedText);
+
+        /// <summary>
+        /// Tries to trigger an interruption, which sends a message to the playthrough to silence currently talking NPC
+        /// and go to an interruption subplot
+        /// </summary>
+        public abstract bool TryInterrupt();
+
+        /// <summary>
+        /// Sends interruption text to charisma graph so that the interruption can be correctly processed
+        /// </summary>
+        public abstract void ForceSendLastInterruption();
     }
 }

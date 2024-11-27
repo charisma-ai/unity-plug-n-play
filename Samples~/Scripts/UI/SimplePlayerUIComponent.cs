@@ -11,44 +11,51 @@ namespace CharismaSDK.PlugNPlay
         [SerializeField]
         private SimpleReplyController _charismaReplyUI;
 
+        public Action<string> OnTextUpdate;
+        
+        private bool _isReplying = false;
+        
+        public bool IsActive { get; private set; }
+        
         public void SetPlayerInputFieldActive(bool flag)
         {
             _charismaReplyUI.SetInputFieldActive(flag);
+            IsActive = flag;
         }
 
         public void SetDisplayInteractPrompt(bool display)
         {
             _interactPrompt.gameObject.SetActive(display);
         }
-
-        internal string GetReplyText()
-        {
-            return _charismaReplyUI.GetReplyText();
-        }
-
-        internal bool IsUserWritingReply()
+        
+        public bool IsUserWritingReply()
         {
             return _charismaReplyUI.IsWritingReply();
         }
 
-        internal bool HasReplyBeenSubmitted()
+        public bool HasReplyBeenSubmitted()
         {
             return _charismaReplyUI.HasReplied();
         }
 
-        internal void EditText()
+        public void EditText(bool focus)
         {
-            _charismaReplyUI.FocusInputField(true, false);
+            _charismaReplyUI.FocusInputField(focus, false);
         }
 
-        internal void EditViaSpeech()
+        public void EditViaSpeech(bool focus)
         {
-            _charismaReplyUI.FocusInputField(false, true);
+            _charismaReplyUI.FocusInputField(focus, true);
         }
 
-        internal void SetReplyText(string replyText)
+        public void SetReplyText(string replyText)
         {
             _charismaReplyUI.SetReplyText(replyText);
+        }
+        
+        public string GetReplyText()
+        {
+            return _charismaReplyUI.GetReplyText();
         }
     }
 }

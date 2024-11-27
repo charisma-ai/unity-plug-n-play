@@ -53,8 +53,7 @@ namespace CharismaSDK.PlugNPlay
 
         public void Update()
         {
-            var isPendingMessageNull = (_pendingMessage == ""
-                            || _pendingMessage == null);
+            var isPendingMessageNull = string.IsNullOrEmpty(_pendingMessage);
 
             switch (_state)
             {
@@ -172,8 +171,7 @@ namespace CharismaSDK.PlugNPlay
 
         internal bool HasReplied()
         {
-            return _state == PlayerInputState.SendReply && _pendingMessage != null
-                && _pendingMessage != "";
+            return _state == PlayerInputState.SendReply && !string.IsNullOrEmpty(_pendingMessage);
         }
 
         internal bool IsWritingReply()

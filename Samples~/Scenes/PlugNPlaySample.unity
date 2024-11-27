@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42516865}
   - component: {fileID: 42516866}
+  - component: {fileID: 42516867}
   m_Layer: 0
   m_Name: CharismaPlaythroughInstance
   m_TagString: Untagged
@@ -320,6 +321,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2c6d18b14c81d2046b207f491b919c9c, type: 2}
   - {fileID: 11400000, guid: aee900cc5c9c7de4e93e9ddb777dc3d5, type: 2}
   - {fileID: 11400000, guid: cf66df06c04057d4faf908ac14e3bab0, type: 2}
+  - {fileID: 11400000, guid: 8b8cb0e5d967a52438983f230184285b, type: 2}
   - {fileID: 11400000, guid: 24d7a19f51eea384d9b7a12487c0f1cc, type: 2}
   - {fileID: 11400000, guid: 0a161b5a88ab0204591c4fa671156160, type: 2}
   - {fileID: 11400000, guid: 787d5a9bfae1dad47914aa77f56bd581, type: 2}
@@ -344,6 +346,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _currentSpeaker: {fileID: 0}
+--- !u!114 &42516867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42516863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394d2b0a4d64946a7be55c6f10585b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &48702085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,6 +3451,11 @@ PrefabInstance:
     - target: {fileID: 8523605686952682351, guid: 88f050ae3fb1e84439f236a0d9535b89,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523605687433253508, guid: 88f050ae3fb1e84439f236a0d9535b89,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

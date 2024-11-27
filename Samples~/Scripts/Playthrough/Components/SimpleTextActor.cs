@@ -15,6 +15,7 @@ namespace CharismaSDK.PlugNPlay
         public override bool HasTextOutput => true;
         public override bool HasCharacterData => false;
         public override bool HasCurrentSpeakerRequirement => false;
+        public override bool IsTalking => false;
         public override bool ListensForAllCharacterMessages => true;
 
         public override void SendPlaythroughMessage(Message message)

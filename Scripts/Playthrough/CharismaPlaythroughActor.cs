@@ -19,6 +19,7 @@ namespace CharismaSDK.PlugNPlay
         public abstract bool HasTextOutput { get; }
         public abstract bool HasCharacterData { get; }
         public abstract bool HasCurrentSpeakerRequirement { get; }
+        public abstract bool IsTalking { get; }
 
         /// <summary>
         /// Send the message body that needs to be printed
@@ -32,7 +33,7 @@ namespace CharismaSDK.PlugNPlay
         public virtual void SendAudioClip(AudioClip audioClip) { }
 
         /// <summary>
-        /// Send all messageEvent data received from the current Playthrough 
+        /// Send all messageEvent data received from the current Playthrough
         /// </summary>
         public virtual void AddCharacterEmotion(Emotion emotion) { }
 

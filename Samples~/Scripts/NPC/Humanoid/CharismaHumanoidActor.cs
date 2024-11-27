@@ -30,6 +30,7 @@ namespace CharismaSDK.PlugNPlay
         public override bool HasCurrentSpeakerRequirement => true;
         public override bool ListensForAllCharacterMessages => true;
 
+        public override bool IsTalking => _characterComponent.IsTalking;
         // Resolve parameters
         // these should be assigned and referenced later within the Resolve() function
         private Transform _resolveParamLookAtTarget;
@@ -139,6 +140,12 @@ namespace CharismaSDK.PlugNPlay
             _resolveEmotions.Clear();
             _resolveMessage = default;
             _pendingTasks.Clear();
+        }
+        
+        internal void Interrupt()
+        {
+            Debug.LogError("interrupted");
+            _characterComponent.Interrupt();
         }
 
         #endregion

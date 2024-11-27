@@ -38,8 +38,7 @@ namespace CharismaSDK.PlugNPlay
         [ReadOnly]
         [SerializeField]
         private List<NPCTask> _pendingRemoval = new List<NPCTask>();
-
-
+        
         private SimpleStateMachine<NPCState> _fsm = new SimpleStateMachine<NPCState>();
 
         private Transform _pendingGoToTarget;
@@ -57,16 +56,15 @@ namespace CharismaSDK.PlugNPlay
         private const float MINIMUM_RNG_TIMER_THRESHOLD = 5f;
         private const float MAXIMUM_RNG_TIMER_THRESHOLD = 15f;
         private const float TALKING_ANIM_TIME_OUT = 1f;
-
-
+        
         private float _mannerismTimer;
 
         private bool _requestManerism;
         private bool _resetRng;
         private float _rngTimer;
-
-
         private float _talkingAnimTimer;
+        
+        public bool IsTalking => _audioSource.isPlaying;
 
         private void Start()
         {
@@ -143,6 +141,12 @@ namespace CharismaSDK.PlugNPlay
         public void StopTalking()
         {
             _talkingAnimTimer = 0.0f;
+        }
+        
+        internal void Interrupt()
+        {
+            _talkingAnimTimer = 0.0f;
+            _audioSource.Stop();
         }
 
         public void ReplyTo(AudioClip audioClip)
