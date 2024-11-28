@@ -83,9 +83,6 @@ MonoBehaviour:
       - _animationNodeName: StandDefault
         _animationTags: 0
         _associatedCharismaEmotion: 
-      - _animationNodeName: IdleHappy
-        _animationTags: 6
-        _associatedCharismaEmotion: 
       - _animationNodeName: IdleLean
         _animationTags: 6
         _associatedCharismaEmotion: 
@@ -113,6 +110,12 @@ MonoBehaviour:
       - _animationNodeName: WalkIdle
         _animationTags: 16
         _associatedCharismaEmotion: 
+      - _animationNodeName: IdleNeutral
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: Rotate
+        _animationTags: 0
+        _associatedCharismaEmotion: 
     - LayerName: Fullbody
       LayerId: 1
       _layerMaskType: 0
@@ -132,52 +135,49 @@ MonoBehaviour:
       - _animationNodeName: Wave
         _animationTags: 0
         _associatedCharismaEmotion: 
-      - _animationNodeName: talk_loop_1_F
-        _animationTags: 3
+      - _animationNodeName: talk_loop_1
+        _animationTags: 0
         _associatedCharismaEmotion: 
-      - _animationNodeName: talk_loop_2_F
-        _animationTags: 3
+      - _animationNodeName: talk_loop_2
+        _animationTags: 0
+        _associatedCharismaEmotion: 
+      - _animationNodeName: Thinking
+        _animationTags: 34
         _associatedCharismaEmotion: 
     - LayerName: Head
       LayerId: 2
       _layerMaskType: 1
       _animationNodeData:
       - _animationNodeName: head_agreement
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: 
       - _animationNodeName: head_annoyed
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: DISGUST
       - _animationNodeName: head_disagreement
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: HATE
       - _animationNodeName: head_disappointment
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: 
       - _animationNodeName: head_shy
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: SHAME
       - _animationNodeName: head_thankful
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: GRATITUDE
-      - _animationNodeName: head_thinking
-        _animationTags: 35
-        _associatedCharismaEmotion: 
     - LayerName: Upperbody
       LayerId: 3
       _layerMaskType: 2
       _animationNodeData:
       - _animationNodeName: body_disappointed
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: HATE
       - _animationNodeName: body_thankful
-        _animationTags: 35
-        _associatedCharismaEmotion: 
-      - _animationNodeName: body_thinking
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: 
       - _animationNodeName: body_sad
-        _animationTags: 35
+        _animationTags: 3
         _associatedCharismaEmotion: DISGUST
     _animationParameters:
     - _type: 3
@@ -186,8 +186,8 @@ MonoBehaviour:
       _name: Talking
     - _type: 4
       _name: Walking
-  _referenceAnimationController: {fileID: 9100000, guid: 7bacf9812df0e9f4599d3880efb48bb9, type: 2}
-  _expressionParentDirectory: Assets\Samples\Charisma.ai NPC\0.1.0\Example\Animation\Data
+  _referenceAnimationController: {fileID: 9100000, guid: 7bacf9812df0e9f4599d3880efb48bb9,
+    type: 2}
   _facialExpressions:
   - {fileID: 11400000, guid: 199a3deab6b69c649a1afbb617a13f6f, type: 2}
   - {fileID: 11400000, guid: 40f9fb95b53dca449927d812a94ebbf0, type: 2}

@@ -134,6 +134,14 @@ namespace CharismaSDK.PlugNPlay
                 Logger.Log("Playthrough was not loaded. Please call LoadPlaythrough() first.");
                 return;
             }
+            
+            foreach (var actor in _entities.Actors)
+            {
+                if (actor is CharismaHumanoidActor humanoidActor)
+                {
+                    humanoidActor.OnPlayerSpeak();
+                }
+            }
 
             // Send a reply to our current conversation.
             _playthrough.Reply(_conversationUuid, reply);

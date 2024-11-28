@@ -56,6 +56,7 @@ namespace CharismaSDK.PlugNPlay
         private const float MINIMUM_RNG_TIMER_THRESHOLD = 5f;
         private const float MAXIMUM_RNG_TIMER_THRESHOLD = 15f;
         private const float TALKING_ANIM_TIME_OUT = 1f;
+        private const float THINKING_ANIM_TIME_OUT = 3f;
         
         private float _mannerismTimer;
 
@@ -63,6 +64,8 @@ namespace CharismaSDK.PlugNPlay
         private bool _resetRng;
         private float _rngTimer;
         private float _talkingAnimTimer;
+        private float _thinkingAnimTimer;
+        private bool _isThinking;
         
         public bool IsTalking => _audioSource.isPlaying;
 
@@ -80,6 +83,7 @@ namespace CharismaSDK.PlugNPlay
 
             UpdateCurrentTasks(Time.deltaTime);
             UpdateTalkingAnimationParameters();
+            UpdateThinkingAnimationParameters();
         }
 
         #region Public functions
@@ -141,11 +145,6 @@ namespace CharismaSDK.PlugNPlay
         public void StopTalking()
         {
             _talkingAnimTimer = 0.0f;
-        }
-        
-        internal void Interrupt()
-        {
-            _talkingAnimTimer = 0.0f;
             _audioSource.Stop();
         }
 
@@ -164,6 +163,11 @@ namespace CharismaSDK.PlugNPlay
 
             _audioSource.clip = audioClip;
             _audioSource.Play();
+        }
+        
+        public void OnPlayerSpeak()
+        {
+            PlayAppropriateThinkingAnimation();
         }
 
         // TODO: find a better solution to resolve task + other animation collisions
@@ -196,6 +200,13 @@ namespace CharismaSDK.PlugNPlay
             return result;
         }
 
+        private void PlayAppropriateWalkingAnimation()
+        {
+            var walkingAnimation = AnimationFlags.Walking;
+
+            _animationController.RequestAnimationWithFlags(walkingAnimation, true);
+        }
+        
         private void PlayAppropriateIdleAnimation()
         {
             var idleAnimation = AnimationFlags.Idle;
@@ -203,26 +214,20 @@ namespace CharismaSDK.PlugNPlay
             if (!IsWalkingTaskPending())
             {
                 AddAnimationFlagBasedOnState(ref idleAnimation);
-                _animationController.RequestAnimationWithFlagsAndEmotion(idleAnimation, GetCurrentEmotion());
+                _animationController.RequestAnimationWithFlagsAndEmotion(idleAnimation, GetCurrentEmotion(), _isThinking);
+                _isThinking = false;
             }
-        }
-
-        private void PlayAppropriateWalkingAnimation()
-        {
-            var walkingAnimation = AnimationFlags.Walking;
-
-            _animationController.RequestAnimationWithFlags(walkingAnimation, true);
         }
 
         private void PlayAppropriateMannerismAnimation()
         {
             var mannerismAnimation = AnimationFlags.Mannerism;
 
-            if (!IsWalkingTaskPending())
+            if (!IsWalkingTaskPending() && _thinkingAnimTimer <= 0)
             {
                 AddAnimationFlagBasedOnState(ref mannerismAnimation);
-                _animationController.RequestAnimationWithFlagsAndEmotion(mannerismAnimation, GetCurrentEmotion());
-                _talkingAnimTimer = TALKING_ANIM_TIME_OUT;
+                _animationController.RequestAnimationWithFlagsAndEmotion(mannerismAnimation, GetCurrentEmotion(), _isThinking);
+                _isThinking = false;
             }
         }
 
@@ -233,7 +238,22 @@ namespace CharismaSDK.PlugNPlay
             if (!IsWalkingTaskPending() && _talkingAnimTimer <= 0)
             {
                 AddAnimationFlagBasedOnState(ref talkingAnimationFlags);
-                _animationController.RequestAnimationWithFlagsAndEmotion(talkingAnimationFlags, GetCurrentEmotion());
+                _animationController.RequestAnimationWithFlagsAndEmotion(talkingAnimationFlags, GetCurrentEmotion(), _isThinking);
+                _talkingAnimTimer = TALKING_ANIM_TIME_OUT;
+                _isThinking = false;
+            }
+        }
+        
+        private void PlayAppropriateThinkingAnimation()
+        {
+            var talkingAnimationFlags = AnimationFlags.Thinking;
+
+            if (!IsWalkingTaskPending())
+            {
+                _isThinking = true;
+                AddAnimationFlagBasedOnState(ref talkingAnimationFlags);
+                _animationController.RequestAnimationWithFlagsAndEmotion(talkingAnimationFlags, GetCurrentEmotion(), _isThinking);
+                _thinkingAnimTimer = THINKING_ANIM_TIME_OUT;
             }
         }
 
@@ -362,7 +382,7 @@ namespace CharismaSDK.PlugNPlay
             }
             else
             {
-                if (_talkingAnimTimer > 0.0f)
+                if (_talkingAnimTimer > 0)
                 {
                     _talkingAnimTimer -= Time.deltaTime;
                 }
@@ -373,6 +393,13 @@ namespace CharismaSDK.PlugNPlay
             }
         }
 
+        private void UpdateThinkingAnimationParameters()
+        {
+            if (_thinkingAnimTimer > 0)
+            {
+                _thinkingAnimTimer -= Time.deltaTime;
+            }
+        }
 
         private bool IsLookingAtTarget()
         {

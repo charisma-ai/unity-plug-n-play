@@ -142,9 +142,14 @@ namespace CharismaSDK.PlugNPlay
             _pendingTasks.Clear();
         }
         
+        public void OnPlayerSpeak()
+        {
+            _characterComponent.OnPlayerSpeak();
+        }
+        
         internal void Interrupt()
         {
-            _characterComponent.Interrupt();
+            _characterComponent.StopTalking();
         }
 
         #endregion

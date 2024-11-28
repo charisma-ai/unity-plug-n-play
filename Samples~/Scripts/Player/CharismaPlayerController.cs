@@ -197,7 +197,7 @@ namespace CharismaSDK.PlugNPlay
 
         public override bool TryInterrupt()
         {
-            if (_interruptionsEnabled)
+            if (!_interruptionsEnabled)
             {
                 return false;
             }

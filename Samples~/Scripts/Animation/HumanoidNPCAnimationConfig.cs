@@ -18,7 +18,8 @@ namespace CharismaSDK.PlugNPlay
         Standing = 2,
         Idle = 4,
         Mannerism = 8,
-        Walking = 16
+        Walking = 16,
+        Thinking = 32
     }
 
     [Serializable]
