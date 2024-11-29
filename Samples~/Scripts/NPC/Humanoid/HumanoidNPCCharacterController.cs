@@ -39,6 +39,9 @@ namespace CharismaSDK.PlugNPlay
         [SerializeField]
         private List<NPCTask> _pendingRemoval = new List<NPCTask>();
         
+        [SerializeField] [Range(0,1f)]
+        private float _thiningAnimChance = 0.5f;
+        
         private SimpleStateMachine<NPCState> _fsm = new SimpleStateMachine<NPCState>();
 
         private Transform _pendingGoToTarget;
@@ -166,7 +169,10 @@ namespace CharismaSDK.PlugNPlay
         
         public void OnPlayerSpeak()
         {
-            PlayAppropriateThinkingAnimation();
+            if (Random.Range(0, 1f) <= _thiningAnimChance)
+            {
+                PlayAppropriateThinkingAnimation();
+            }
         }
 
         // TODO: find a better solution to resolve task + other animation collisions

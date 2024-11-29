@@ -14,7 +14,7 @@ namespace CharismaSDK.PlugNPlay
         private float _bodyWeight = 0.1f;
         private float _headWeight = 0.5f;
         private float _eyesWeight = 0.5f;
-        private float _clampWeight = 0.7f;
+        private float _clampWeight = 0.4f;
 
         private float _revertToForwardSpeedMin = .9f;
         private float _revertToForwardSpeedMax = .15f;

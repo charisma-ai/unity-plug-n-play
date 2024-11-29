@@ -1814,6 +1814,7 @@ MonoBehaviour:
   _animationController: {fileID: 546359579394168900}
   _navmeshComponent: {fileID: 4448255605580613395}
   _audioSource: {fileID: 2357104863309023608}
+  _thiningAnimChance: 0.5
 --- !u!195 &6410533464747543027
 NavMeshAgent:
   m_ObjectHideFlags: 0

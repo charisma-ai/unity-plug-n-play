@@ -42,7 +42,9 @@ namespace CharismaSDK.PlugNPlay
             internal BlendshapeControl(float baselineWeight)
             {
                 _baselineWeight = baselineWeight;
-                Reset();
+                _targetWeight = _baselineWeight;
+                _currentWeight = _baselineWeight;
+                _motion = BlendshapeMotion.Inactive;
             }
 
             /// <summary>
@@ -71,17 +73,6 @@ namespace CharismaSDK.PlugNPlay
                 _holdTimer = duration;
                 _motion = BlendshapeMotion.HoldIntensity;
             }
-
-            /// <summary>
-            /// Reset to baseline weights
-            /// And return Blendshape to inactive
-            /// </summary>
-            internal void Reset()
-            {
-                _targetWeight = _baselineWeight;
-                _currentWeight = _baselineWeight;
-                _motion = BlendshapeMotion.Inactive;
-            }
             
             /// <summary>
             /// Reset to baseline weights
@@ -100,7 +91,7 @@ namespace CharismaSDK.PlugNPlay
                 switch (_motion)
                 {
                     case BlendshapeMotion.BlendToIntensity:
-                        if (BlendToTarget(_targetWeight))
+                        if (BlendToTarget())
                         {
                             _blendingVelocity = 0f;
                             _motion = BlendshapeMotion.HoldIntensity;
@@ -113,12 +104,13 @@ namespace CharismaSDK.PlugNPlay
                         }
                         else
                         {
+                            _targetWeight = _baselineWeight;
                             _blendingVelocity = 0f;
                             _motion = BlendshapeMotion.ReturnToBaseValue;
                         }
                         break;
                     case BlendshapeMotion.ReturnToBaseValue:
-                        if (BlendToTarget(_baselineWeight))
+                        if (BlendToTarget())
                         {
                             _blendingVelocity = 0f;
                             _motion = BlendshapeMotion.Inactive;
@@ -135,17 +127,17 @@ namespace CharismaSDK.PlugNPlay
             /// </summary>
             /// <param name="target">Target value to blend to</param>
             /// <returns>Returns whether we have reached the desired target</returns>
-            private bool BlendToTarget(float target)
+            private bool BlendToTarget()
             {
-                var resultWeight = Mathf.SmoothDamp(_currentWeight, target,
+                var resultWeight = Mathf.SmoothDamp(_currentWeight, _targetWeight,
                     ref _blendingVelocity, 0.3f,
                     _maxblendingSpeed, deltaTime: Time.deltaTime);
-
+                
                 // increment by 1, smoothdamp can take ages due to smoothening and floating point error
                 _currentWeight = resultWeight;
-
+                
                 // if no longer moving, we've reached our destination
-                if (Mathf.Abs(_currentWeight-_targetWeight) < 0.1f)
+                if (Mathf.Abs(_currentWeight-_targetWeight) < 0.05f)
                 {
                     return true;
                 }
@@ -219,7 +211,7 @@ namespace CharismaSDK.PlugNPlay
                     if (newTargets.TryGetValue(blend.Key, out var target))
                     {
                         var weight = target * multiplier;
-                        blend.Value.StartAnimating(weight, ANIMATION_SPEED_MS, duration + MINIMUM_EXPRESSION_DURATION);
+                        blend.Value.StartAnimating(weight, ANIMATION_SPEED_MS, (duration/1000f) + MINIMUM_EXPRESSION_DURATION);
                     }
                     else
                     {
