@@ -230,7 +230,7 @@ namespace CharismaSDK.PlugNPlay
             }
             else
             {
-                SetFacialExpression(expression, modifier, instant: instant);
+                SetFacialExpression(expression, modifier, duration, instant);
             }
         }
 

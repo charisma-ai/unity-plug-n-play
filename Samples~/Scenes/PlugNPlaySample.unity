@@ -303,10 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e25ceb5a0929634ba4da6ca05908f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _storyId: 29994
-  _storyVersion: -1
-  _apiKey: 370cabf3-b4c8-4a8d-83a5-59b035b82122
-  _startGraphReferenceId: start
+  _storyId: 0
+  _storyVersion: 0
+  _apiKey: 
+  _startGraphReferenceId: 
   _speechOptions:
     _audioOutput: 0
     _encoding: 0000000002000000
@@ -3476,6 +3476,11 @@ PrefabInstance:
       propertyPath: _playerUI
       value: 
       objectReference: {fileID: 1460888117}
+    - target: {fileID: 4028536148387213626, guid: 7611b90f276dd9c44951cae34a9da9fb,
+        type: 3}
+      propertyPath: _interruptionsEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4028536148387213626, guid: 7611b90f276dd9c44951cae34a9da9fb,
         type: 3}
       propertyPath: _rotationSpeedDegreesPerSecondVertical

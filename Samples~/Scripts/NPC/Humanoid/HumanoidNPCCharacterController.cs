@@ -110,7 +110,6 @@ namespace CharismaSDK.PlugNPlay
             }
 
             _animationController.SetFacialExpression(_currentEmotion, _emotionIntensity, messageDuration);
-
         }
 
         private void SortMostIntenseEmotion(Emotion emotion)

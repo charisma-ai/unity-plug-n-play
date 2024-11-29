@@ -19,4 +19,4 @@ MonoBehaviour:
       Value:
         _blendshapes:
         - BlendName: BS.happy_M
-          Intensity: 58
+          Intensity: 100

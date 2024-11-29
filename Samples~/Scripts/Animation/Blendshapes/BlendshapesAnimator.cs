@@ -160,7 +160,7 @@ namespace CharismaSDK.PlugNPlay
         // Speed of animation in MS per frame
         private const float ANIMATION_SPEED_MS = 150f;
 
-        private const float MINIMUM_EXPRESSION_DURATION = 5f;
+        private const float MINIMUM_EXPRESSION_DURATION = 3f;
 
         private SkinnedMeshRenderer _smr;
 
@@ -219,7 +219,7 @@ namespace CharismaSDK.PlugNPlay
                     if (newTargets.TryGetValue(blend.Key, out var target))
                     {
                         var weight = target * multiplier;
-                        blend.Value.StartAnimating(weight, ANIMATION_SPEED_MS, MINIMUM_EXPRESSION_DURATION);
+                        blend.Value.StartAnimating(weight, ANIMATION_SPEED_MS, duration + MINIMUM_EXPRESSION_DURATION);
                     }
                     else
                     {
@@ -231,7 +231,7 @@ namespace CharismaSDK.PlugNPlay
             {
                 foreach (var blendshape in newTargets)
                 {
-                    _blendshapeControls[blendshape.Key].ForceAnimate(blendshape.Value * multiplier, MINIMUM_EXPRESSION_DURATION);
+                    _blendshapeControls[blendshape.Key].ForceAnimate(blendshape.Value * multiplier, duration + MINIMUM_EXPRESSION_DURATION);
                 }
 
                 _smr.ResetBlendWeights();

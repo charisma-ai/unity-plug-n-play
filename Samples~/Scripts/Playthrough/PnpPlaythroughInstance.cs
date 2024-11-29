@@ -237,7 +237,7 @@ namespace CharismaSDK.PlugNPlay
                 string metadataValue;
                 if (message.message.metadata.TryGetValue(metadata.MetadataId, out metadataValue))
                 {
-                    metadata.Execute(metadataValue);
+                    metadata.Execute(SanitizeMetaValue(metadataValue));
                 }
             }
 
@@ -251,6 +251,11 @@ namespace CharismaSDK.PlugNPlay
             {
                 TrySendDataToActor(actor, message);
             }
+        }
+
+        private string SanitizeMetaValue(string input)
+        {
+            return input.Trim();
         }
 
         private void TrySendDataToActor(CharismaPlaythroughActor actor, MessageEvent message)
@@ -281,6 +286,11 @@ namespace CharismaSDK.PlugNPlay
             if (actor.HasTextOutput)
             {
                 actor.SendPlaythroughMessage(message.message);
+            }
+            
+            if (actor.HasCharacterData)
+            {
+                HandleEmotions(actor, message);
             }
 
             if (actor.HasCurrentSpeakerRequirement)
@@ -340,6 +350,11 @@ namespace CharismaSDK.PlugNPlay
             // Send Emotions
             foreach (Emotion emotion in message.emotions)
             {
+                if (!string.Equals(emotion.name, actor.CharacterId, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    continue;
+                }
+                
                 if (emotion.activeEffects.Length > 0)
                 {
                     actor.AddCharacterEmotion(emotion);
