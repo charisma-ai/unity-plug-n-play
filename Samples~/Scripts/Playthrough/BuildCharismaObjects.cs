@@ -29,10 +29,10 @@ namespace CharismaSDK.PlugNPlay
                 {
                     continue;
                 }
-
+                
                 Debug.Log($"Creating meta function of type: {type.Name}");
-
-                var metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.2.0/Example/Data/Playthrough/Metadata/";
+                
+                var metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.1.9/Example/Data/Playthrough/Metadata/";
                 if (!Directory.Exists(metadataFunctionFolder))
                 {
                     Directory.CreateDirectory(metadataFunctionFolder);
@@ -41,7 +41,7 @@ namespace CharismaSDK.PlugNPlay
                 var path = metadataFunctionFolder + type.Name + ".asset";
                 AssetDatabase.CreateAsset(asset, path);
             }
-
+            
             AssetDatabase.SaveAssets();
         }
     }

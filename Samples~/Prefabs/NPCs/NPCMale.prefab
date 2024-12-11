@@ -1707,7 +1707,7 @@ GameObject:
   - component: {fileID: 6410533463885909338}
   - component: {fileID: 4448255605798382472}
   m_Layer: 0
-  m_Name: Textbox
+  m_Name: TextboxPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6243a2c91eacf524f897631185296ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterId: 
+  _characterId: ashby
   _headLocation: {fileID: 6424189129715930274}
   _characterComponent: {fileID: 4448255605580613392}
   _textRender: {fileID: 4448255605798382472}
