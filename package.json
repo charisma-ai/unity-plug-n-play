@@ -1,6 +1,6 @@
 {
 	"name": "ai.charisma.plugnplay",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"displayName": "Charisma.ai Plug-N-Play",
 	"description": "Charisma.ai Plug-N-Play for Unity",
 	"unity": "2022.3",
