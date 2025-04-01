@@ -12,11 +12,11 @@ namespace CharismaSDK.PlugNPlay
     public class PnpPlaythroughInstance : PlaythroughInstanceBase
     {
         public delegate void SetListeningDelegate(bool listening);
-        
+
         [SerializeField]
         [Tooltip("Toggle to output messages as audible Speech.")]
         private bool _useSpeechOutput = true;
-        
+
         [Header("PnP Data")]
         [SerializeField]
         [Tooltip("Collection of metadata functions that will be registered to this playthrough.")]
@@ -30,18 +30,18 @@ namespace CharismaSDK.PlugNPlay
         [Header("Debug")]
         [SerializeField]
         private ConnectionStateDisplay _connectionState;
-        
+
         [SerializeField]
         private UnityEvent _onStoryEnd;
 
-        [SerializeField] 
+        [SerializeField]
         private CharismaPlaythroughActor _currentSpeaker;
-        
+
         // STT
         private List<string> _recognizedSpeechTextList = new List<string>();
         private string _currentRecognizedText;
-        
-        private string CurrentRecognizedText 
+
+        private string CurrentRecognizedText
         {
             get
             {
@@ -53,22 +53,22 @@ namespace CharismaSDK.PlugNPlay
                 }
 
                 text.Append(_currentRecognizedText);
-                
+
                 return text.ToString();
             }
         }
-        
+
         private void Awake()
         {
             _entities.FindAllValidPlaythroughEntities();
         }
-        
+
         protected override void Start()
         {
             base.Start();
-            
+
             MetadataDependencies dependencies = new MetadataDependencies(_entities);
-            
+
             foreach (var metadata in _metadataFunctions)
             {
                 metadata.AssignDependencies(dependencies);
@@ -118,10 +118,10 @@ namespace CharismaSDK.PlugNPlay
                 player.StartVoiceRecognition += SetPlaythroughToListening;
                 player.StopVoiceRecognition += SetPlaythroughToListening;
             }
-            
+
             StartPlaythrough();
         }
-        
+
         /// <summary>
         /// Sends a local reply to the Charisma playthrough session.
         /// The playthrough will attempt to send a message in return.
@@ -134,7 +134,7 @@ namespace CharismaSDK.PlugNPlay
                 Logger.Log("Playthrough was not loaded. Please call LoadPlaythrough() first.");
                 return;
             }
-            
+
             foreach (var actor in _entities.Actors)
             {
                 if (actor is CharismaHumanoidActor humanoidActor)
@@ -162,7 +162,7 @@ namespace CharismaSDK.PlugNPlay
             // Send a memory to our current conversation.
             StartCoroutine(CharismaAPI.SetMemory(_playthrough.Token, recallValue, saveValue));
         }
-        
+
         #endregion
 
         #region Private functions
@@ -172,13 +172,13 @@ namespace CharismaSDK.PlugNPlay
             _currentRecognizedText = message.text;
 
             var player = _entities.GetPlayerEntity();
-            
+
             if (message.isFinal)
             {
                 _recognizedSpeechTextList.Add(_currentRecognizedText);
                 _currentRecognizedText = "";
             }
-            
+
             if (player != default)
             {
                 player.SendSpeechResult(CurrentRecognizedText);
@@ -230,7 +230,7 @@ namespace CharismaSDK.PlugNPlay
                 _playthrough.Disconnect();
                 return;
             }
-        
+
             // Go through all the metadata handlers and try to execute the callback
             foreach (var metadata in _metadataFunctions)
             {
@@ -239,11 +239,6 @@ namespace CharismaSDK.PlugNPlay
                 {
                     metadata.Execute(SanitizeMetaValue(metadataValue));
                 }
-            }
-
-            if (message.message.character == null)
-            {
-                return;
             }
 
             // Inform subscribers that a message has been received.
@@ -287,19 +282,22 @@ namespace CharismaSDK.PlugNPlay
             {
                 actor.SendPlaythroughMessage(message.message);
             }
-            
+
             if (actor.HasCharacterData)
             {
                 HandleEmotions(actor, message);
             }
 
-            if (actor.HasCurrentSpeakerRequirement)
+            if (message.message.character != null)
             {
-                var currentSpeaker = _entities.GetActorByName(message.message.character.name);
-
-                if (currentSpeaker != default)
+                if (actor.HasCurrentSpeakerRequirement)
                 {
-                    actor.SetCurrentSpeaker(currentSpeaker);
+                    var currentSpeaker = _entities.GetActorByName(message.message.character.name);
+
+                    if (currentSpeaker != default)
+                    {
+                        actor.SetCurrentSpeaker(currentSpeaker);
+                    }
                 }
             }
 
@@ -335,7 +333,7 @@ namespace CharismaSDK.PlugNPlay
 
             tryResolveOnComplete?.Invoke();
         }
-        
+
         /// <summary>
         /// Sets the callback to execute on succesfully receiving a message from the playthrough.
         /// Should be set before starting the Playthrough.
@@ -354,7 +352,7 @@ namespace CharismaSDK.PlugNPlay
                 {
                     continue;
                 }
-                
+
                 if (emotion.activeEffects.Length > 0)
                 {
                     actor.AddCharacterEmotion(emotion);
