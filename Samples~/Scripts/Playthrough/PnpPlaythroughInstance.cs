@@ -41,6 +41,8 @@ namespace CharismaSDK.PlugNPlay
         private List<string> _recognizedSpeechTextList = new List<string>();
         private string _currentRecognizedText;
 
+        public Action OnTapContinueRequest;
+
         private string CurrentRecognizedText
         {
             get
@@ -82,13 +84,14 @@ namespace CharismaSDK.PlugNPlay
             LoadPlaythrough();
         }
 
-        private void OnApplicationQuit()
+        protected override void OnApplicationQuit()
         {
+            base.OnApplicationQuit();
+            
             if (_playthrough != default)
             {
                 _playthrough.OnConnectionStateChange -= UpdateConnectionState;
                 _playthrough.OnSpeechRecognitionResult -= OnSpeechRecognitionResult;
-                _playthrough.OnMessage -= OnMessageReceived;
 
                 _playthrough.Disconnect();
 
@@ -245,6 +248,11 @@ namespace CharismaSDK.PlugNPlay
             foreach (var actor in _entities.Actors)
             {
                 TrySendDataToActor(actor, message);
+            }
+
+            if (message.tapToContinue)
+            {
+                OnTapContinueRequest?.Invoke();
             }
         }
 

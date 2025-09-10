@@ -6,16 +6,21 @@ namespace CharismaSDK.PlugNPlay
     public class SimplePlayerUIComponent : MonoBehaviour
     {
         [SerializeField]
-        private SimpleInteractPrompt _interactPrompt;
-
-        [SerializeField]
         private SimpleReplyController _charismaReplyUI;
-
+        
+        [SerializeField]
+        private SimpleInteractPrompt _interactPrompt;
+        
+        [SerializeField]
+        private SimpleTapContinuePrompt _tapContinuePrompt;
+        
         public Action<string> OnTextUpdate;
         
         private bool _isReplying = false;
         
         public bool IsActive { get; private set; }
+
+        public bool IsTapToContinuePromptActive => _tapContinuePrompt.IsPromptActive;
         
         public void SetPlayerInputFieldActive(bool flag)
         {
@@ -56,6 +61,11 @@ namespace CharismaSDK.PlugNPlay
         public string GetReplyText()
         {
             return _charismaReplyUI.GetReplyText();
+        }
+
+        public void SetTapContinuePromptActive(bool active)
+        {
+            _tapContinuePrompt.SetPromptActive(active);
         }
     }
 }

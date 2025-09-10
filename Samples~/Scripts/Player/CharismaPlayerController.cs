@@ -38,7 +38,7 @@ namespace CharismaSDK.PlugNPlay
         [Range(0, 1)] [SerializeField] 
         private float _smoothing = 0.6f;
 
-        private PlaythroughInstanceBase _playthroughInstance;
+        private PnpPlaythroughInstance _playthroughInstance;
         private List<CharismaHumanoidActor> _interruptNPCTargets;
         private Vector3 _startPosition;
         private Vector3 _startRotation;
@@ -68,11 +68,13 @@ namespace CharismaSDK.PlugNPlay
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            _playthroughInstance = FindObjectOfType<PlaythroughInstanceBase>();
+            _playthroughInstance = FindObjectOfType<PnpPlaythroughInstance>();
             _interruptNPCTargets = FindObjectsOfType<CharismaHumanoidActor>().ToList();
             _characterController = GetComponent<CharacterController>();
             _playerUI.OnTextUpdate += OnTextUpdate;
 
+            _playthroughInstance.OnTapContinueRequest += OnTapToContinueRequested;
+            
             // move initially to snap to floor
             _characterController.Move(Vector3.zero);
             _characterController.enabled = false;
@@ -229,6 +231,7 @@ namespace CharismaSDK.PlugNPlay
         private void OnInteractionUpdate()
         {
             UpdateSpeechRecognition();
+            UpdateTapContinue();
             UpdateReplySubmission();
         }
 
@@ -281,6 +284,20 @@ namespace CharismaSDK.PlugNPlay
                 _isTalking = false;
             }
         }
+        
+        private void UpdateTapContinue()
+        {
+            if (_isWriting || _isTalking || !_playerUI.IsTapToContinuePromptActive)
+            {
+                return;
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _playthroughInstance.Tap();
+                _playerUI.SetTapContinuePromptActive(false);
+            }
+        }
 
         private void SendReply(string resultInput)
         {
@@ -321,6 +338,11 @@ namespace CharismaSDK.PlugNPlay
         private void OnTextUpdate(string newText)
         {
             _pendingText = newText;
+        }
+        
+        private void OnTapToContinueRequested()
+        {
+            _playerUI.SetTapContinuePromptActive(true);
         }
     }
 }

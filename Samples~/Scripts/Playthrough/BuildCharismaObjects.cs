@@ -32,7 +32,7 @@ namespace CharismaSDK.PlugNPlay
 
                 Debug.Log($"Creating meta function of type: {type.Name}");
 
-                var metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.2.2/Example/Data/Playthrough/Metadata/";
+                var metadataFunctionFolder = "Assets/Samples/Charisma.ai Plug-N-Play/0.2.4/Example/Data/Playthrough/Metadata/";
                 if (!Directory.Exists(metadataFunctionFolder))
                 {
                     Directory.CreateDirectory(metadataFunctionFolder);
