@@ -1,4 +1,4 @@
-# Charisma SDK for Unity
+# Charisma Plug-N-Play package for Unity
 
 This Unity plugin is verified to work with projects using Unity versions up to `2022.2` and above. If you find the plugin also works in another version, feel free to submit a pull request to update this!
 
