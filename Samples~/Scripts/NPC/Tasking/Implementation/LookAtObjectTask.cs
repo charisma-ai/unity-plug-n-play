@@ -15,7 +15,6 @@ namespace CharismaSDK.PlugNPlay
         internal override bool CanPerform(HumanoidNPCCharacterController humanoidNPC)
         {
             return true;
-
         }
 
         internal override void TaskStart(HumanoidNPCCharacterController humanoidNPC)

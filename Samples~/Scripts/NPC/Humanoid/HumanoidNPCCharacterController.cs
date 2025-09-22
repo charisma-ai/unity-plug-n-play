@@ -1,6 +1,7 @@
 using CharismaSDK.StateMachine;
 using CharismaSDK.Events;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CharismaSDK.PlugNPlay
@@ -320,15 +321,14 @@ namespace CharismaSDK.PlugNPlay
         {
             Debug.Log($"[ClearCurrentTask] - {this.gameObject.name}, force: {force}");
 
-            foreach (var task in _currentTasks)
+            foreach (var task in _currentTasks.ToList())
             {
                 if (task.Priority == NPCTask.TaskPriority.Low || force == true)
                 {
                     task.TaskStop(this, force);
+                    _currentTasks.Remove(task);
                 }
             }
-
-            _currentTasks.Clear();
         }
 
         internal void ClearGoToTarget()
@@ -467,7 +467,7 @@ namespace CharismaSDK.PlugNPlay
             {
                 if (!_animationController.HasRequestedAnimationFinished())
                 {
-                    return;
+                    _animationController.CheckFinishRequestedAnims();
                 }
 
                 // ignore go to requests that lead to the same area
@@ -479,6 +479,7 @@ namespace CharismaSDK.PlugNPlay
 
                 if (IsFacingTargetGoTo() && _animationController.HasFinishedTurning())
                 {
+                    Debug.Log($"Starting walk cycle for {this.gameObject.name}");
                     PlayAppropriateWalkingAnimation();
                     _fsm.SetState(NPCState.Walk);
                     return;

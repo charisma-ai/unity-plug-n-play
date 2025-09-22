@@ -23,12 +23,7 @@ namespace CharismaSDK.PlugNPlay
             var task = new LookAtObjectTask(new LookAtObjectParameters(target, durationS));
             humanoidNPC.AddTaskToNPC(task);
         }
-
-        public static void TurnToAndLookAtObject(this HumanoidNPCCharacterController humanoidNPC, GameObject target, float durationS = -1)
-        {
-            var task = new TurnToAndLookAtObjectTask(new TurnToAndLookAtObjectParameters(target, durationS));
-            humanoidNPC.AddTaskToNPC(task);
-        }
+        
         public static void PlayAnimation(this HumanoidNPCCharacterController humanoidNPC, string animation, bool force = false)
         {
             var task = new PlayAnimationTask(new PlayAnimationParameters(animation, force));

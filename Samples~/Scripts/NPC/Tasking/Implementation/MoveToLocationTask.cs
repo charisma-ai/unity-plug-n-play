@@ -8,6 +8,7 @@ namespace CharismaSDK.PlugNPlay
         public MoveToLocationTask(MoveToParameters parameters)
         {
             _parameters = parameters;
+            Priority = TaskPriority.High;
         }
 
         internal override bool CanPerform(HumanoidNPCCharacterController humanoidNPC)

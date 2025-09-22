@@ -1,5 +1,6 @@
 using CharismaSDK.Events;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CharismaSDK.PlugNPlay
@@ -92,7 +93,7 @@ namespace CharismaSDK.PlugNPlay
             }
 
             // Assign NPC tasks that came thru from metadata
-            _characterComponent?.ClearCurrentTasks();
+            _characterComponent?.ClearCurrentTasks(false);
             foreach (var task in _pendingTasks)
             {
                 _characterComponent.AddTask(task);

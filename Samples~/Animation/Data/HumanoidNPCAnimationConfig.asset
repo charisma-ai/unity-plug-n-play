@@ -141,9 +141,6 @@ MonoBehaviour:
       - _animationNodeName: talk_loop_2
         _animationTags: 0
         _associatedCharismaEmotion: 
-      - _animationNodeName: Thinking
-        _animationTags: 34
-        _associatedCharismaEmotion: 
     - LayerName: Head
       LayerId: 2
       _layerMaskType: 1

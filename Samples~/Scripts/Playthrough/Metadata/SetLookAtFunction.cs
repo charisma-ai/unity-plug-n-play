@@ -20,7 +20,8 @@ namespace CharismaSDK.PlugNPlay
 
                         if (player != default)
                         {
-                            npc.HumanoidCharacter?.LookAtObject(player.gameObject, -1);
+                            npc.AddMetaDataTask(new LookAtObjectTask(new LookAtObjectParameters(player.gameObject, -1)));
+                            //npc.HumanoidCharacter?.LookAtObject(player.gameObject, -1);
                         }
                     }
                 }
